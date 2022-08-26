@@ -1,19 +1,21 @@
 package com.example.rentalcarspringmvc.config;
 
-
+import com.example.rentalcarspringmvc.entities.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class HibernateConfig {
-
- private static final SessionFactory SESSION_FACTORY = buildSessionFactory();
-
+    private static final SessionFactory SESSION_FACTORY = buildSessionFactory();
+    /**
+     * Utility class
+     */
     private HibernateConfig() {}
     public static SessionFactory getSessionFactory() {
         return SESSION_FACTORY;
@@ -41,5 +43,4 @@ public class HibernateConfig {
         dbSettings.put(Environment.HBM2DDL_AUTO, "update");
         return dbSettings;
     }
-
 }

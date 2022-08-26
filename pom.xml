@@ -72,6 +72,13 @@
             <version>5.4.1.Final</version>
         </dependency>
 
+        <!-- JDBC for MYSQL -->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>7.2.1.jre8</version>
+        </dependency>
+
         <!-- HIBERNATE C3P0 -->
         <dependency>
             <groupId>org.hibernate</groupId>
