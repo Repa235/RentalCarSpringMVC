@@ -1,7 +1,7 @@
 package com.example.rentalcarspringmvc.service;
 
 import com.example.rentalcarspringmvc.entities.Utente;
-import com.example.rentalcarspringmvc.repository.UtenteRepository;
+import com.example.rentalcarspringmvc.repository.UtenteDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +13,16 @@ import java.util.List;
 public class UtenteServiceImpl implements UtenteService{
 
     @Autowired
-    UtenteRepository utenteRepository;
+    UtenteDao utenteDao;
 
     @Override
     public Utente getUtente(Long id) {
-        return utenteRepository.getUtente(id);
+        return utenteDao.getUtente(id);
     }
 
     @Override
     public boolean saveOrUpdateUtente(Utente c) {
-        return utenteRepository.saveOrUpdateUtente(c);
+        return utenteDao.saveOrUpdateUtente(c);
     }
 
     @Override
@@ -32,12 +32,12 @@ public class UtenteServiceImpl implements UtenteService{
 
     @Override
     public List<Utente> getCustomers() {
-        return utenteRepository.getCustomers();
+        return utenteDao.getCustomers();
     }
 
     @Override
     public List<Utente> getUsersByUsername(String username) {
-        return utenteRepository.getUsersByUsername(username);
+        return utenteDao.getUsersByUsername(username);
     }
 
     @Override

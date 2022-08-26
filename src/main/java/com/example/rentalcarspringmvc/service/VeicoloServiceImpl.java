@@ -1,7 +1,7 @@
 package com.example.rentalcarspringmvc.service;
 
 import com.example.rentalcarspringmvc.entities.Veicolo;
-import com.example.rentalcarspringmvc.repository.VeicoloRepository;
+import com.example.rentalcarspringmvc.repository.VeicoloDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
@@ -9,30 +9,30 @@ import java.util.List;
 
 public class VeicoloServiceImpl implements VeicoloService{
     @Autowired
-    VeicoloRepository veicoloRepository;
+    VeicoloDao veicoloDao;
 
     @Override
     public Veicolo getVeicolo(Long id) {
-        return veicoloRepository.getVeicolo(id);
+        return veicoloDao.getVeicolo(id);
     }
 
     @Override
     public List<Veicolo> getVeicoli() {
-        return veicoloRepository.getVeicoli();
+        return veicoloDao.getVeicoli();
     }
 
     @Override
     public boolean saveOrUpdateVeicolo(Veicolo c) {
-        return veicoloRepository.saveOrUpdateVeicolo(c);
+        return veicoloDao.saveOrUpdateVeicolo(c);
     }
 
     @Override
     public boolean deleteVeicolo(Veicolo c) {
-        return veicoloRepository.deleteVeicolo(c);
+        return veicoloDao.deleteVeicolo(c);
     }
 
     @Override
     public List<Veicolo> getVeicoliLiberiNelRange(LocalDate dataSceltaI, LocalDate dataSceltaF) {
-        return veicoloRepository.getVeicoliLiberiNelRange(dataSceltaI,dataSceltaF);
+        return veicoloDao.getVeicoliLiberiNelRange(dataSceltaI,dataSceltaF);
     }
 }

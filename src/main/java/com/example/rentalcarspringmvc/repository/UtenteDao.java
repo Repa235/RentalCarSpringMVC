@@ -1,11 +1,10 @@
 package com.example.rentalcarspringmvc.repository;
 
 import com.example.rentalcarspringmvc.entities.Utente;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface UtenteRepository {
+public interface UtenteDao {
     public Utente getUtente(Long id);
     public boolean saveOrUpdateUtente(Utente c);
     public boolean deleteUtente(Utente c);

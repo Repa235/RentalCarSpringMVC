@@ -1,7 +1,7 @@
 package com.example.rentalcarspringmvc.service;
 
 import com.example.rentalcarspringmvc.entities.Prenotazione;
-import com.example.rentalcarspringmvc.repository.PrenotazioneRepository;
+import com.example.rentalcarspringmvc.repository.PrenotazioneDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -9,25 +9,25 @@ import java.util.List;
 public class PrenotazioneServiceImpl implements PrenotazioneService{
 
     @Autowired
-    PrenotazioneRepository prenotazioneRepository;
+    PrenotazioneDao prenotazioneDao;
 
     @Override
     public Prenotazione getPrenotazione(Long id) {
-        return prenotazioneRepository.getPrenotazione(id);
+        return prenotazioneDao.getPrenotazione(id);
     }
 
     @Override
     public List<Prenotazione> getAllPrenotazioni() {
-        return prenotazioneRepository.getAllPrenotazioni();
+        return prenotazioneDao.getAllPrenotazioni();
     }
 
     @Override
     public boolean saveOrUpdatePrenotazione(Prenotazione c) {
-        return prenotazioneRepository.saveOrUpdatePrenotazione(c);
+        return prenotazioneDao.saveOrUpdatePrenotazione(c);
     }
 
     @Override
     public boolean deletePrenotazione(Prenotazione c) {
-        return prenotazioneRepository.deletePrenotazione(c);
+        return prenotazioneDao.deletePrenotazione(c);
     }
 }

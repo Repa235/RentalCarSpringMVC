@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Repository
-public class VeicoloRepositoryImpl implements VeicoloRepository{
+public class VeicoloDaoImpl implements VeicoloDao {
     @Override
     public Veicolo getVeicolo(Long id) {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {

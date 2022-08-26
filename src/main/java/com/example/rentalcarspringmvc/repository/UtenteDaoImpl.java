@@ -14,7 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 @Repository
-public class UtenteRepositoryImpl implements UtenteRepository {
+public class UtenteDaoImpl implements UtenteDao {
     @Override
     public Utente getUtente(Long id) {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {

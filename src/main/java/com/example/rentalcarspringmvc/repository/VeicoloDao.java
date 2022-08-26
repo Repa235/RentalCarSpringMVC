@@ -5,7 +5,7 @@ import com.example.rentalcarspringmvc.entities.Veicolo;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface VeicoloRepository {
+public interface VeicoloDao {
     public Veicolo getVeicolo(Long id);
     public List<Veicolo> getVeicoli();
     public boolean saveOrUpdateVeicolo(Veicolo c);

@@ -14,7 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 @Repository
-public class PrenotazioneRepositoryImpl implements PrenotazioneRepository {
+public class PrenotazioneDaoImpl implements PrenotazioneDao {
     public Prenotazione getPrenotazione(Long id) {
     try ( Session session = HibernateConfig.getSessionFactory().openSession()) {
         return session.get(Prenotazione.class, id);
