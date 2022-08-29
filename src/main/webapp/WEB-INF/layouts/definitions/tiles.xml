@@ -3,15 +3,30 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-
+    <!-- Layout base -->
     <definition name="baseLayout" template="/WEB-INF/layouts/template/base.jsp">
         <put-attribute name="titolo" value=""/>
         <put-attribute name="content" value=""/>
         <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp"/>
     </definition>
     <definition name="index" extends="baseLayout">
-        <put-attribute name="titolo" value="Affittati la macchina e stai zitto!!!"/>
+        <put-attribute name="titolo" value="Homepage"/>
         <put-attribute name="content" value="/WEB-INF/view/welcome.jsp"/>
     </definition>
+    <definition name="veicoli" extends="baseLayout">
+        <put-attribute name="titolo" value="Parco auto"/>
+        <put-attribute name="content" value="/WEB-INF/view/parcoAuto.jsp"/>
+    </definition>
 
+    <!-- Layout Customer -->
+    <definition name="customerLayout" template="/WEB-INF/layouts/template/baseCustomer.jsp">
+        <put-attribute name="titolo" value=""/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp"/>
+    </definition>
+
+    <definition name="profiloCustomer" extends="customerLayout">
+        <put-attribute name="titolo" value="Homepage"/>
+        <put-attribute name="content" value="/WEB-INF/view/Utente/profiloCustomer.jsp"/>
+    </definition>
 </tiles-definitions>

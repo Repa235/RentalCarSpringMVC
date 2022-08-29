@@ -1,6 +1,7 @@
 package com.example.rentalcarspringmvc.service;
 
 import com.example.rentalcarspringmvc.entities.Veicolo;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;

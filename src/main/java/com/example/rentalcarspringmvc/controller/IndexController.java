@@ -14,6 +14,7 @@ public class IndexController {
         return "index";
     }
 
+
     @RequestMapping
     public String getWelcome2(Model model) {
         model.addAttribute("Intestazione", "Affitta da noi l'auto che desideri");

@@ -22,18 +22,34 @@
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <h2 style="color: white">SpringAutoRental</h2>
+            <h3 style="color: white">SpringAutoRental</h3>
             </a>
             <div style="width: 100px"></div>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="#" class="nav-link px-2 text-white">Home</a></li>
                 <c:url var="parcoAuto" value="veicolo" />
-                <li><a href="${parcoAuto}" class="nav-link px-2 text-white">Parco auto</a></li>
+                <li><a href="../${parcoAuto}" class="nav-link px-2 text-white">Parco auto</a></li>
 
             </ul>
         </div>
     </div>
 </header>
+<header class="p-3 mb-3 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <h3 style="color: black">Benvenuto ${utente.nome} ${utente.cognome} </h3>
+        </div>
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-2 link-dark">Visualizza veicoli</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark">Prenota veicolo</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark">Modifica</a></li>
+            </ul>
+
+        </div>
+    </div>
+</header>
+
 <tiles:insertAttribute name="content"/>
 <tiles:insertAttribute name="footer"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
