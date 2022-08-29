@@ -3,9 +3,10 @@ package com.example.rentalcarspringmvc.service;
 import com.example.rentalcarspringmvc.entities.Prenotazione;
 import com.example.rentalcarspringmvc.repository.PrenotazioneDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PrenotazioneServiceImpl implements PrenotazioneService{
 
     @Autowired

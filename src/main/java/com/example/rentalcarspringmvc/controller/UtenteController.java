@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -22,8 +23,9 @@ public class UtenteController {
     @GetMapping("/profiloCustomer")
     public String profiloCustomer(Model model) {
         Utente utente = utenteService.getUtente(Long.parseLong("2"));
+        LocalDate now = LocalDate.now();
         model.addAttribute("utente", utente);
-
+        model.addAttribute("now", now);
         return "profiloCustomer";
     }
 }
