@@ -30,5 +30,13 @@
         <put-attribute name="content" value="/WEB-INF/view/Utente/profiloCustomer.jsp"/>
     </definition>
 
+    <definition name="dateSelector" extends="customerLayout">
+        <put-attribute name="titolo" value="Date Selector"/>
+        <put-attribute name="content" value="/WEB-INF/view/Prenotazione/dateSelector.jsp"/>
+    </definition>
 
+    <definition name="formPrenotazione" extends="customerLayout">
+        <put-attribute name="titolo" value="Prenotazione del veicolo"/>
+        <put-attribute name="content" value="/WEB-INF/view/Prenotazione/formPrenotazione.jsp"/>
+    </definition>
 </tiles-definitions>

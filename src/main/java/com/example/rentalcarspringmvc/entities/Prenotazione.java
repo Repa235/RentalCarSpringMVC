@@ -115,4 +115,6 @@ public class Prenotazione implements Serializable {
     public int hashCode() {
         return Objects.hash(getId(), getUtente(), getVeicolo(), getDataInizio(), getDataFine(), isApprovato());
     }
+
+
 }
