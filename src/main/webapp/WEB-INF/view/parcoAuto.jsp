@@ -8,15 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<h2>Ecco i veicoli che si trovano nel nostro parco auto</h2>
+<h2><spring:message code="parcoauto.titolo"/></h2>
 <table class="table table-hover">
     <thead>
     <tr>
-        <th scope="col">Id veicolo</th>
-        <th scope="col">Casa costruttrice</th>
-        <th scope="col">Modello</th>
-        <th scope="col">Anno immatricolazione</th>
-        <th scope="col">Tipo</th>
+        <th scope="col"><spring:message code="parcoauto.tabella.idveicolo"></th>
+        <th scope="col"><spring:message code="parcoauto.tabella.casacostruttrice"></th>
+        <th scope="col"><spring:message code="parcoauto.tabella.modello"></th>
+        <th scope="col"><spring:message code="parcoauto.tabella.annoimmatricolazione"></th>
+        <th scope="col"><spring:message code="parcoauto.tabella.tipo"></th>
     </tr>
     </thead>
     <tbody>

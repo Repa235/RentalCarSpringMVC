@@ -26,9 +26,9 @@
             </a>
             <div style="width: 100px"></div>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-white">Home</a></li>
+                <li><a href="#" class="nav-link px-2 text-white"><spring:message code="header.home"/></a></li>
                 <c:url var="parcoAuto" value="veicolo" />
-                <li><a href="../${parcoAuto}" class="nav-link px-2 text-white">Parco auto</a></li>
+                <li><a href="../${parcoAuto}" class="nav-link px-2 text-white"><spring:message code="header.parcoauto"/></a></li>
 
             </ul>
         </div>
@@ -37,13 +37,13 @@
 <header class="p-3 mb-3 border-bottom">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <h3 style="color: black">Benvenuto ${utente.nome} ${utente.cognome} </h3>
+            <h3 style="color: black"><spring:message code="header.customer.benvenuto"/> ${utente.nome} ${utente.cognome} </h3>
         </div>
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 link-dark">Visualizza veicoli</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">Prenota veicolo</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">Modifica</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark"><spring:message code="header.customer.visualizzaveicoli"/></a></li>
+                <li><a href="#" class="nav-link px-2 link-dark"><spring:message code="header.customer.prenotaveicolo"/></a></li>
+                <li><a href="#" class="nav-link px-2 link-dark"><spring:message code="header.customer.modifica"/></a></li>
             </ul>
 
         </div>

@@ -26,9 +26,9 @@
             </a>
             <div style="width: 100px"></div>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-white">Home</a></li>
+                <li><a href="#" class="nav-link px-2 text-white"><spring:message code="header.home"></spring:message></a></li>
                 <c:url var="parcoAuto" value="veicolo" />
-                <li><a href="${parcoAuto}" class="nav-link px-2 text-white">Parco auto</a></li>
+                <li><a href="${parcoAuto}" class="nav-link px-2 text-white"><spring:message code="header.parcoauto"></spring:message></a></li>
 
             </ul>
         </div>
