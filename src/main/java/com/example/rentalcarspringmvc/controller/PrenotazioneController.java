@@ -1,10 +1,12 @@
 package com.example.rentalcarspringmvc.controller;
 
+import com.example.rentalcarspringmvc.dto.PrenotazioneDto;
 import com.example.rentalcarspringmvc.entities.Prenotazione;
 import com.example.rentalcarspringmvc.entities.Veicolo;
+import com.example.rentalcarspringmvc.mapper.PrenotazioneMapper;
 import com.example.rentalcarspringmvc.service.PrenotazioneService;
+import com.example.rentalcarspringmvc.service.UtenteService;
 import com.example.rentalcarspringmvc.service.VeicoloService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +19,14 @@ import java.util.List;
 @RequestMapping("/prenotazione")
 public class PrenotazioneController {
 
-    @Autowired
-    private PrenotazioneService prenotazioneService;
-    @Autowired
-    private VeicoloService veicoloService;
+    private final UtenteService utenteService;
+    private final VeicoloService veicoloService;
+    private final PrenotazioneService prenotazioneService;
+    public PrenotazioneController(UtenteService utenteService, VeicoloService veicoloService, PrenotazioneService prenotazioneService) {
+        this.utenteService = utenteService;
+        this.veicoloService = veicoloService;
+        this.prenotazioneService = prenotazioneService;
+    }
 
     @GetMapping("/dateSelector")
     public String dateSelector() {
@@ -35,16 +41,18 @@ public class PrenotazioneController {
         model.addAttribute("al", al);
         List<Veicolo> lv = veicoloService.getVeicoliLiberiNelRange(dal, al);
         model.addAttribute("lv", lv);
-        Prenotazione newPrenotazione = new Prenotazione();
-        model.addAttribute("newPrenotazione", newPrenotazione);
+        PrenotazioneDto newPrenotazioneDto = new PrenotazioneDto();
+        model.addAttribute("newPrenotazioneDto", newPrenotazioneDto);
         return "formPrenotazione";
     }
 
 
-    @RequestMapping(value = "/inserisciPrenotazione", method = RequestMethod.POST)
-    public String inserisciPrenotazione(@ModelAttribute("newPrenotazione") Prenotazione newPrenotazione, Model model) {
-        System.out.println(newPrenotazione.getDataInizio());
-        return "/utente/profiloCustomer";
+    @PostMapping(value = "/inserisciPrenotazione")
+    public String inserisciPrenotazione(@ModelAttribute("newPrenotazioneDto") PrenotazioneDto newPrenotazioneDto) {
+
+       Prenotazione p = PrenotazioneMapper.fromDtoToEntityAdd(newPrenotazioneDto);
+       prenotazioneService.saveOrUpdatePrenotazione(p);
+        return "redirect:/utente/profiloCustomer";
     }
 
 

@@ -14,16 +14,13 @@
         <div align="center">
             <h4>Completa la prenotazione del veicolo</h4>
         </div>
-
-
-        <form:form method="POST" action="inserisciPrenotazione" modelAttribute="newPrenotazione" class="form-control">
-            <form:hidden path="utente" value="1"/>
-
+        <form:form method="POST" action="inserisciPrenotazione" modelAttribute="newPrenotazioneDto" class="form-control">
+            <form:hidden path="id_utente" value="2"/>
             <form:hidden path="dataInizio" value="${dal}"/>
             <form:hidden path="dataFine" value="${al}"/>
             <p>Dal: ${dal}</p>
             <p>Al: ${al}</p>
-            <form:select path="veicolo" cssClass="form-control">
+            <form:select path="id_veicolo" cssClass="form-control">
                 <c:forEach var="v" items="${lv}">
                     <form:option value="${v.id}" label="${v.casaCostruttrice} ${v.modello}"/>
                 </c:forEach>
