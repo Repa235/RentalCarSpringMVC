@@ -3,7 +3,9 @@ package com.example.rentalcarspringmvc.dto;
 import com.example.rentalcarspringmvc.entities.Utente;
 import com.example.rentalcarspringmvc.entities.Veicolo;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 public class PrenotazioneDto {
@@ -11,8 +13,10 @@ public class PrenotazioneDto {
     private String id;
     private String id_utente;
     private String id_veicolo;
+@NotEmpty(message = "{errore.datainizio.nullo}")
     private String dataInizio;
-    private String dataFine;
+    @NotEmpty(message = "{errore.datafine.nullo}")
+private String dataFine;
     private String isApprovato;
 
     public String getId() {

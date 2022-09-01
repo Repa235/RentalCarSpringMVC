@@ -9,9 +9,11 @@ import com.example.rentalcarspringmvc.service.UtenteService;
 import com.example.rentalcarspringmvc.service.VeicoloService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class PrenotazioneController {
     private final UtenteService utenteService;
     private final VeicoloService veicoloService;
     private final PrenotazioneService prenotazioneService;
+
     public PrenotazioneController(UtenteService utenteService, VeicoloService veicoloService, PrenotazioneService prenotazioneService) {
         this.utenteService = utenteService;
         this.veicoloService = veicoloService;
@@ -48,10 +51,12 @@ public class PrenotazioneController {
 
 
     @PostMapping(value = "/inserisciPrenotazione")
-    public String inserisciPrenotazione(@ModelAttribute("newPrenotazioneDto") PrenotazioneDto newPrenotazioneDto) {
-
-       Prenotazione p = PrenotazioneMapper.fromDtoToEntityAdd(newPrenotazioneDto);
-       prenotazioneService.saveOrUpdatePrenotazione(p);
+    public String inserisciPrenotazione(@Valid @ModelAttribute("newPrenotazioneDto") PrenotazioneDto newPrenotazioneDto, BindingResult result) {
+        if (result.hasErrors()) {
+            return "formPrenotazione";
+        }
+        Prenotazione p = PrenotazioneMapper.fromDtoToEntityAdd(newPrenotazioneDto);
+        prenotazioneService.saveOrUpdatePrenotazione(p);
         return "redirect:/utente/profiloCustomer";
     }
 
