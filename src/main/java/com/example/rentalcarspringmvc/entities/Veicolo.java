@@ -1,12 +1,14 @@
 package com.example.rentalcarspringmvc.entities;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 @Entity
 @Table(name = "veicolo")
+@XmlRootElement
 public class Veicolo implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
