@@ -29,7 +29,10 @@
                 <li><a href="#" class="nav-link px-2 text-white"><spring:message code="header.home"/></a></li>
                 <c:url var="parcoAuto" value="veicolo" />
                 <li><a href="../${parcoAuto}" class="nav-link px-2 text-white"><spring:message code="header.parcoauto"/></a></li>
-
+            </ul>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a class="nav-link px-2 text-white" href="?language=en">EN</a></li>
+                <li><a class="nav-link px-2 text-white" href="?language=it">IT</a></li>
             </ul>
         </div>
     </div>

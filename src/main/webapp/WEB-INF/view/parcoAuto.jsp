@@ -12,11 +12,11 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th scope="col"><spring:message code="parcoauto.tabella.idveicolo"></th>
-        <th scope="col"><spring:message code="parcoauto.tabella.casacostruttrice"></th>
-        <th scope="col"><spring:message code="parcoauto.tabella.modello"></th>
-        <th scope="col"><spring:message code="parcoauto.tabella.annoimmatricolazione"></th>
-        <th scope="col"><spring:message code="parcoauto.tabella.tipo"></th>
+        <th scope="col"><spring:message code="parcoauto.tabella.idveicolo"/></th>
+        <th scope="col"><spring:message code="parcoauto.tabella.casacostruttrice"/></th>
+        <th scope="col"><spring:message code="parcoauto.tabella.modello"/></th>
+        <th scope="col"><spring:message code="parcoauto.tabella.annoimmatricolazione"/></th>
+        <th scope="col"><spring:message code="parcoauto.tabella.tipo"/></th>
     </tr>
     </thead>
     <tbody>
