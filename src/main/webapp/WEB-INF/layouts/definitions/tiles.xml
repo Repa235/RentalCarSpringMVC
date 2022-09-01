@@ -39,4 +39,10 @@
         <put-attribute name="titolo" value="Prenotazione del veicolo"/>
         <put-attribute name="content" value="/WEB-INF/view/Prenotazione/formPrenotazione.jsp"/>
     </definition>
+
+    <!-- Eccezioni -->
+    <definition name="NoDataParse" extends="baseLayout">
+        <put-attribute name="titolo" value="Data non inserita"/>
+        <put-attribute name="content" value="/WEB-INF/view/dateparse.jsp"/>
+    </definition>
 </tiles-definitions>
