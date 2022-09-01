@@ -24,7 +24,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="prenotazione" items="${utente.prenotazioni}">
+            <c:forEach var="prenotazione" items="${customer.prenotazioni}">
                 <tr>
                     <td>${prenotazione.dataInizio}</td>
                     <td>${prenotazione.dataFine}</td>

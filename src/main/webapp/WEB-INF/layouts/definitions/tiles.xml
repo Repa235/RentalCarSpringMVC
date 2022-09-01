@@ -40,6 +40,11 @@
         <put-attribute name="content" value="/WEB-INF/view/Prenotazione/formPrenotazione.jsp"/>
     </definition>
 
+    <definition name="formUtente" extends="customerLayout">
+        <put-attribute name="titolo" value="Modifica dati utente"/>
+        <put-attribute name="content" value="/WEB-INF/view/Utente/formUtente.jsp"/>
+    </definition>
+
     <!-- Eccezioni -->
     <definition name="NoDataParse" extends="baseLayout">
         <put-attribute name="titolo" value="Data non inserita"/>
