@@ -42,6 +42,6 @@ public class UtenteServiceImpl implements UtenteService{
 
     @Override
     public List<Utente> getCustomerByParam(String filtro, String testo) {
-        return getCustomerByParam(filtro,testo);
+        return utenteDao.getCustomerByParam(filtro,testo);
     }
 }

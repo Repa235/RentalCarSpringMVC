@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
@@ -40,11 +41,24 @@ public class UtenteController {
         return "profiloSuperuser";
     }
 
+    @GetMapping("/searchUtenti")
+    public String searchUtenti(Model model, HttpServletRequest request) {
+        Utente superuser = utenteService.getUtente(Long.parseLong("1"));
+        model.addAttribute("superuser", superuser);
+        String filtraPer = request.getParameter("filtraPer");
+        String text = request.getParameter("text");
+        List<Utente> filtered;
+        filtered = utenteService.getCustomerByParam(filtraPer,text);
+        model.addAttribute("clienti", filtered);
+        return "profiloSuperuser";
+    }
+
     @GetMapping("/formUtente")
     public String formUtente(@RequestParam("customerId") String customerId, Model model) {
-        System.out.println(customerId);
-        Utente customer = utenteService.getUtente(Long.parseLong(customerId));
-        model.addAttribute("customer", customer);
+        if(!customerId.equals("new")) {
+            Utente customer = utenteService.getUtente(Long.parseLong(customerId));
+            model.addAttribute("customer", customer);
+        }
         model.addAttribute("customerDto", new UtenteDto());
         return "formUtente";
     }
@@ -63,7 +77,7 @@ public class UtenteController {
             Utente customerToModify = UtenteMapper.fromDtoToEntityModify(customerDto);
             utenteService.saveOrUpdateUtente(customerToModify);
         }
-        return "redirect:/utente/profiloCustomer";
+        return "redirect:../";
     }
 
 

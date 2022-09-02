@@ -62,6 +62,11 @@
         <put-attribute name="content" value="/WEB-INF/view/Utente/profiloSuperuser.jsp"/>
     </definition>
 
+    <definition name="formVeicolo" extends="superuserLayout">
+        <put-attribute name="titolo" value="Aggiungi veicolo"/>
+        <put-attribute name="content" value="/WEB-INF/view/Veicolo/formVeicolo.jsp"/>
+    </definition>
+
     <!-- Eccezioni -->
     <definition name="NoDataParse" extends="baseLayout">
         <put-attribute name="titolo" value="Data non inserita"/>

@@ -27,8 +27,9 @@
             <div style="width: 100px"></div>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="" class="nav-link px-2 text-white"><spring:message code="header.home"/></a></li>
-                <c:url var="parcoAuto" value="veicolo" />
-                <li><a href="../${parcoAuto}" class="nav-link px-2 text-white"><spring:message code="header.parcoauto"/></a></li>
+                <c:url var="parcoAuto" value="veicolo"/>
+                <li><a href="../${parcoAuto}" class="nav-link px-2 text-white"><spring:message
+                        code="header.parcoauto"/></a></li>
             </ul>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a class="nav-link px-2 text-white" href="?language=en">EN</a></li>
@@ -40,23 +41,29 @@
 <header class="p-3 mb-3 border-bottom">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <h3 style="color: black"><spring:message code="header.superuser.benvenuto"/> ${superuser.nome} ${superuser.cognome} </h3>
+            <h3 style="color: black"><spring:message
+                    code="header.superuser.benvenuto"/> ${superuser.nome} ${superuser.cognome} </h3>
         </div>
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li>
-                    <c:url value="#" var="veicoliUtente"/>
-                    <a href="${veicoliUtente}" class="btn btn-link"><spring:message code="header.superuser.aggiungiutente"/></a>
+                    <c:url value="formUtente" var="addCustomer">
+                        <c:param name="customerId" value="new"/>
+                    </c:url>
+                    <a href="${addCustomer}" class="btn btn-link"><spring:message
+                            code="header.superuser.aggiungiutente"/></a>
                 </li>
                 <c:url value="#" var="formDatePrenotazione">
                     <c:param name="prenId" value="new"/>
                 </c:url>
-                <li><a href="${formDatePrenotazione}" class="btn btn-link"><spring:message code="header.superuser.aggiungiveicolo"/></a></li>
+                <li><a href="${formDatePrenotazione}" class="btn btn-link"><spring:message
+                        code="header.superuser.aggiungiveicolo"/></a></li>
 
                 <li>
                     <form action="#" method="get">
                         <input type="hidden" name="superuserId" value="${superuser.id}">
-                        <button type="submit" class="btn btn-link"><spring:message code="header.superuser.visualizzaallprenotazioni"/></button>
+                        <button type="submit" class="btn btn-link"><spring:message
+                                code="header.superuser.visualizzaallprenotazioni"/></button>
                     </form>
 
                 </li>

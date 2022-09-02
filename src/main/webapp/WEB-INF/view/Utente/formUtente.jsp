@@ -12,13 +12,13 @@
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div align="center">
-            <h4>Modifica dati utente</h4>
+            <h4>Aggiungi veicolo</h4>
         </div>
 
         <form:form method="post" action="modificaAggiungiUtente" modelAttribute="customerDto" cssClass="form-control">
             <form:errors path="*" element="div"/>
             <form:hidden path="id" value="${customer.id}"/>
-            <form:hidden path="tipo" value="${customer.tipo}"/>
+            <form:hidden path="tipo" value="customer"/>
             <div class="input-group mb-3">
                 <span class="input-group-text">Nome</span>
                 <form:input path="nome" type="text" placeholder="Nome" class="form-control" value="${customer.nome}"/>
