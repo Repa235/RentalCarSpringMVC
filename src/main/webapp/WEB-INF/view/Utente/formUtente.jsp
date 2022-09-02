@@ -16,29 +16,33 @@
         </div>
 
         <form:form method="post" action="modificaAggiungiUtente" modelAttribute="customerDto" cssClass="form-control">
+            <form:errors path="*" element="div"/>
             <form:hidden path="id" value="${customer.id}"/>
+            <form:hidden path="tipo" value="${customer.tipo}"/>
             <div class="input-group mb-3">
                 <span class="input-group-text">Nome</span>
-                <form:input path="nome" type="text" placeholder="Nome" class="form-control"/>
+                <form:input path="nome" type="text" placeholder="Nome" class="form-control" value="${customer.nome}"/>
                 <span class="input-group-text">Cognome</span>
-                <form:input path="cognome" type="text" placeholder="Cognome" class="form-control"/>
+                <form:input path="cognome" type="text" placeholder="Cognome" class="form-control"
+                            value="${customer.cognome}"/>
             </div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Data di nascita</span>
-                <form:input path="dataNascita" type="date" class="form-control"/>
+                <form:input path="dataNascita" type="date" class="form-control" value="${customer.dataNascita}"/>
             </div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text">Username</span>
-                <form:input path="username" type="text" class="form-control" placeholder="Username"/>
+                <form:input path="username" type="text" class="form-control" placeholder="Username"
+                            value="${customer.username}"/>
                 <span class="input-group-text">Password</span>
-                <form:input path="password" type="text" class="form-control" placeholder="Password"/>
+                <form:input path="password" type="text" class="form-control" placeholder="Password"
+                            value="${customer.password}"/>
             </div>
 
             <button type="submit" class="btn btn-primary">Invia dati</button>
         </form:form>
-
 
 
     </div>

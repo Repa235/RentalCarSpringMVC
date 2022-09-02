@@ -42,8 +42,10 @@ public class UtenteController {
     }
 
     @PostMapping("/modificaAggiungiUtente")
-    public String modificaAggiungiUtente(@ModelAttribute("customerDto") UtenteDto customerDto,
-                                         @ModelAttribute("customer") Utente customer){
+    public String modificaAggiungiUtente(@Valid @ModelAttribute("customerDto") UtenteDto customerDto, BindingResult result){
+        if(result.hasErrors()){
+            return "formUtente";
+        }
         System.out.println(customerDto.getNome());
         String idU = customerDto.getId();
         if(idU.isEmpty()||idU==null){
@@ -53,7 +55,7 @@ public class UtenteController {
             Utente customerToModify = UtenteMapper.fromDtoToEntityModify(customerDto);
             utenteService.saveOrUpdateUtente(customerToModify);
         }
-        return "redirect:/utente";
+        return "redirect:/utente/profiloCustomer";
     }
 
 

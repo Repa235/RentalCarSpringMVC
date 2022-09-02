@@ -41,11 +41,10 @@
                                 <p>Scaduta</p>
                             </c:when>
                             <c:otherwise>
-                                <form action="PrenotazioneServlet" method="post">
-                                    <input type="hidden" name="id" value="${prenotazione.id}">
-                                    <input type="hidden" name="comando" value="richiediModificaPrenotazione">
-                                    <input type="submit" value="Modifica">
-                                </form>
+                                <c:url value="/prenotazione/dateSelector" var="formDatePrenotazione">
+                                    <c:param name="prenId" value="${prenotazione.id}"/>
+                                </c:url>
+                                <a href="${formDatePrenotazione}">Modifica</a>
                             </c:otherwise>
                         </c:choose>
                     </td>
@@ -56,11 +55,10 @@
                                 <p>Scaduta</p>
                             </c:when>
                             <c:otherwise>
-                                <form action="PrenotazioneServlet" method="post">
-                                    <input type="hidden" name="id" value="${prenotazione.id}">
-                                    <input type="hidden" name="comando" value="eliminaPrenotazione">
-                                    <input type="submit" value="Elimina">
-                                </form>
+                                <c:url value="/prenotazione/eliminaPrenotazione" var="eliminaPrenotazione">
+                                    <c:param name="prenId" value="${prenotazione.id}"/>
+                                </c:url>
+                                <a href="${eliminaPrenotazione}">Elimina</a>
                             </c:otherwise>
                         </c:choose>
                     </td>

@@ -34,14 +34,43 @@ public class PrenotazioneController {
     }
 
     @GetMapping("/dateSelector")
-    public String dateSelector() {
+    public String dateSelector(HttpServletRequest request, @RequestParam("prenId") String prenId) {
+        //Le prenotazioni nuove verranno contrassegnate da new mentre quelle già presenti avranno il loro id
+        // magari dovrei mettere un'eccezione quando l'id non è presente
+        if (!prenId.equals("new")) {
+            Prenotazione prenotazione = prenotazioneService.getPrenotazione(Long.parseLong(prenId));
+            request.setAttribute("prenotazione", prenotazione);
+        }
         return "dateSelector";
+    }
+
+    @GetMapping("/eliminaPrenotazione")
+    public String eliminaPrenotazione(HttpServletRequest request, @RequestParam("prenId") String prenId) {
+        prenotazioneService.deletePrenotazione(
+                prenotazioneService.getPrenotazione(Long.parseLong(prenId)));
+        return "redirect:/utente/profiloCustomer";
     }
 
     @RequestMapping(value = "/selectVeicoloByDates", method = RequestMethod.POST)
     public String selectVeicoloByDates(Model model, final HttpServletRequest request) {
         String dalS = request.getParameter("dal");
         String alS = request.getParameter("al");
+        String prenId = request.getParameter("prenId");
+        System.out.println(prenId);
+        // Se l'id della prenotazione esiste vuol dire che la prenotazione è da modificare, pertanto la prenotazione
+        //verrà eliminata per verificare la disponibilità del veicolo
+        if (!prenId.isEmpty()) {
+            Prenotazione prenotazione = prenotazioneService.getPrenotazione(Long.parseLong(prenId));
+            List<Prenotazione> prenotazioni = prenotazioneService.getAllPrenotazioni();
+            for (Prenotazione p : prenotazioni) {
+                if (p.getId().equals(prenotazione.getId())) {
+                    System.out.println("Elimino la prenotazione: " + prenId);
+                    prenotazioneService.deletePrenotazione(prenotazione);
+                    break;
+                }
+            }
+
+        }
         if (dalS == null || dalS.isEmpty()) {
             throw new DataParseException(dalS);
         } else if (alS == null || alS.isEmpty()) {
@@ -68,6 +97,8 @@ public class PrenotazioneController {
         mav.setViewName("NoDataParse");
         return mav;
     }
+
+
 
     @PostMapping(value = "/inserisciPrenotazione")
     public String inserisciPrenotazione(@Valid @ModelAttribute("newPrenotazioneDto") PrenotazioneDto newPrenotazioneDto, BindingResult result) {

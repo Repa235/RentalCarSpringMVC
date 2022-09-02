@@ -15,13 +15,14 @@
         </div>
 
         <form method="post" action="selectVeicoloByDates" class="form-control">
+            <input type="hidden" name="prenId" value="${prenotazione.id}">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Dal:</span>
-                <input type="date" name="dal" class="form-control">
+                <input type="date" value="${prenotazione.dataInizio}" name="dal" class="form-control">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Al:</span>
-                <input type="date" name="al" class="form-control">
+                <input type="date" value="${prenotazione.dataFine}" name="al" class="form-control">
             </div>
             <button type="submit" class="btn btn-primary">Fammi vedere i veicoli disponibili per queste date</button>
         </form>

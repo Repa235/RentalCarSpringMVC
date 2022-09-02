@@ -24,4 +24,11 @@ public class VeicoloController {
         return "veicoli";
     }
 
+    @GetMapping("/visualizzaVeicoliUtente")
+    public String visualizzaVeicoliUtente(Model model){
+        List<Veicolo> veicoli = veicoloService.getVeicoli();
+        model.addAttribute("ListVeicoli", veicoli);
+        return "visualizzaVeicoliUtente";
+    }
+
 }
