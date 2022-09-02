@@ -50,6 +50,18 @@
         <put-attribute name="content" value="/WEB-INF/view/parcoAuto.jsp"/>
     </definition>
 
+    <!-- Layout Superuser -->
+    <definition name="superuserLayout" template="/WEB-INF/layouts/template/baseSuperuser.jsp">
+        <put-attribute name="titolo" value=""/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp"/>
+    </definition>
+
+    <definition name="profiloSuperuser" extends="superuserLayout">
+        <put-attribute name="titolo" value="Profilo Superuser"/>
+        <put-attribute name="content" value="/WEB-INF/view/Utente/profiloSuperuser.jsp"/>
+    </definition>
+
     <!-- Eccezioni -->
     <definition name="NoDataParse" extends="baseLayout">
         <put-attribute name="titolo" value="Data non inserita"/>

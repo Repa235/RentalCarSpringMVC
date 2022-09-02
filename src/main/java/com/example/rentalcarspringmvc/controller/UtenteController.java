@@ -32,23 +32,31 @@ public class UtenteController {
         return "profiloCustomer";
     }
 
+    @GetMapping("/profiloSuperuser")
+    public String profiloSuperuser(Model model) {
+        Utente superuser = utenteService.getUtente(Long.parseLong("1"));
+        model.addAttribute("superuser", superuser);
+        model.addAttribute("clienti", utenteService.getCustomers());
+        return "profiloSuperuser";
+    }
+
     @GetMapping("/formUtente")
-    public String formUtente(@RequestParam("customerId") String customerId, Model model){
+    public String formUtente(@RequestParam("customerId") String customerId, Model model) {
         System.out.println(customerId);
         Utente customer = utenteService.getUtente(Long.parseLong(customerId));
-        model.addAttribute("customer",customer);
+        model.addAttribute("customer", customer);
         model.addAttribute("customerDto", new UtenteDto());
         return "formUtente";
     }
 
     @PostMapping("/modificaAggiungiUtente")
-    public String modificaAggiungiUtente(@Valid @ModelAttribute("customerDto") UtenteDto customerDto, BindingResult result){
-        if(result.hasErrors()){
+    public String modificaAggiungiUtente(@Valid @ModelAttribute("customerDto") UtenteDto customerDto, BindingResult result) {
+        if (result.hasErrors()) {
             return "formUtente";
         }
         System.out.println(customerDto.getNome());
         String idU = customerDto.getId();
-        if(idU.isEmpty()||idU==null){
+        if (idU.isEmpty() || idU == null) {
             Utente customerToAdd = UtenteMapper.fromDtoToEntityAdd(customerDto);
             utenteService.saveOrUpdateUtente(customerToAdd);
         } else {
@@ -57,8 +65,6 @@ public class UtenteController {
         }
         return "redirect:/utente/profiloCustomer";
     }
-
-
 
 
 }
