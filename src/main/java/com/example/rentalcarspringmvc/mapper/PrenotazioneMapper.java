@@ -17,8 +17,8 @@ public class PrenotazioneMapper {
         UtenteDao ud = new UtenteDaoImpl();
         VeicoloDao vd = new VeicoloDaoImpl();
 
-        Utente u = ud.getUtente(Long.parseLong(prenotazioneDto.getId_utente()));
-        Veicolo v = vd.getVeicolo(Long.parseLong(prenotazioneDto.getId_veicolo()));
+        Utente u = ud.getUtente(Long.parseLong(prenotazioneDto.getIdUtente()));
+        Veicolo v = vd.getVeicolo(Long.parseLong(prenotazioneDto.getIdVeicolo()));
         return new Prenotazione(
                 Long.parseLong(prenotazioneDto.getId()),
                 u,
@@ -33,8 +33,8 @@ public class PrenotazioneMapper {
         UtenteDao ud = new UtenteDaoImpl();
         VeicoloDao vd = new VeicoloDaoImpl();
 
-        Utente u = ud.getUtente(Long.parseLong(prenotazioneDto.getId_utente()));
-        Veicolo v = vd.getVeicolo(Long.parseLong(prenotazioneDto.getId_veicolo()));
+        Utente u = ud.getUtente(Long.parseLong(prenotazioneDto.getIdUtente()));
+        Veicolo v = vd.getVeicolo(Long.parseLong(prenotazioneDto.getIdVeicolo()));
         return new Prenotazione(
                 u,
                 v,

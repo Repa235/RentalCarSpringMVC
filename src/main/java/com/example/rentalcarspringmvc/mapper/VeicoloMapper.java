@@ -24,13 +24,11 @@ public class VeicoloMapper {
                 veicoloDto.getModello(),
                 Integer.parseInt(veicoloDto.getAnnoImmatricolazione()),
                 veicoloDto.getTipo(),
-                null
+                v.getPrenotazioni()
         );
     }
 
     public static Veicolo fromDtoToEntityAdd(VeicoloDto veicoloDto) {
-        VeicoloDao vd = new VeicoloDaoImpl();
-        Veicolo v = vd.getVeicolo(Long.parseLong(veicoloDto.getId()));
         return new Veicolo(
                 veicoloDto.getCasaCostruttrice(),
                 veicoloDto.getModello(),

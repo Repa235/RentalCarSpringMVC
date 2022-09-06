@@ -62,9 +62,19 @@
         <put-attribute name="content" value="/WEB-INF/view/Utente/profiloSuperuser.jsp"/>
     </definition>
 
+    <definition name="formUtente4Add" extends="superuserLayout">
+        <put-attribute name="titolo" value="Modifica dati utente lato superuser"/>
+        <put-attribute name="content" value="/WEB-INF/view/Utente/formUtente.jsp"/>
+    </definition>
+
     <definition name="formVeicolo" extends="superuserLayout">
         <put-attribute name="titolo" value="Aggiungi veicolo"/>
         <put-attribute name="content" value="/WEB-INF/view/Veicolo/formVeicolo.jsp"/>
+    </definition>
+
+    <definition name="visualizzaPrenotazioni" extends="superuserLayout">
+        <put-attribute name="titolo" value="Visualizza prenotazioni"/>
+        <put-attribute name="content" value="/WEB-INF/view/Prenotazione/visualizzaPrenotazioni.jsp"/>
     </definition>
 
     <!-- Eccezioni -->

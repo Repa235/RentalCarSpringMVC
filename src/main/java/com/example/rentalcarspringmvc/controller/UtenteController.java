@@ -48,23 +48,36 @@ public class UtenteController {
         String filtraPer = request.getParameter("filtraPer");
         String text = request.getParameter("text");
         List<Utente> filtered;
-        filtered = utenteService.getCustomerByParam(filtraPer,text);
+        filtered = utenteService.getCustomerByParam(filtraPer, text);
         model.addAttribute("clienti", filtered);
         return "profiloSuperuser";
     }
 
     @GetMapping("/formUtente")
-    public String formUtente(@RequestParam("customerId") String customerId, Model model) {
-        if(!customerId.equals("new")) {
+    public String formUtente(@RequestParam("customerId") String customerId,
+                             @RequestParam("utenteRichiedente") String utenteRichiedente, Model model) {
+        if (utenteRichiedente.equals("customer")) {
             Utente customer = utenteService.getUtente(Long.parseLong(customerId));
             model.addAttribute("customer", customer);
+            model.addAttribute("customerDto", new UtenteDto());
+            return "formUtente";
+        } else if (utenteRichiedente.equals("superuser") && customerId.equals("new")) {
+            model.addAttribute("customerDto", new UtenteDto());
+            return "formUtente4Add";
+        } else if (utenteRichiedente.equals("superuser") && !customerId.equals("new")) {
+            Utente customer = utenteService.getUtente(Long.parseLong(customerId));
+            model.addAttribute("customer", customer);
+            model.addAttribute("customerDto", new UtenteDto());
+            return "formUtente4Add";
+        } else {
+            return "redirect: ../";
         }
-        model.addAttribute("customerDto", new UtenteDto());
-        return "formUtente";
     }
 
+
     @PostMapping("/modificaAggiungiUtente")
-    public String modificaAggiungiUtente(@Valid @ModelAttribute("customerDto") UtenteDto customerDto, BindingResult result) {
+    public String modificaAggiungiUtente(@Valid @ModelAttribute("customerDto") UtenteDto customerDto, BindingResult
+            result) {
         if (result.hasErrors()) {
             return "formUtente";
         }
@@ -78,6 +91,12 @@ public class UtenteController {
             utenteService.saveOrUpdateUtente(customerToModify);
         }
         return "redirect:../";
+    }
+
+    @GetMapping("/eliminaUtente")
+    public String eliminaUtente(@RequestParam("customerId") String customerId) {
+        utenteService.deleteUtente(utenteService.getUtente(Long.parseLong(customerId)));
+        return "profiloSuperuser";
     }
 
 

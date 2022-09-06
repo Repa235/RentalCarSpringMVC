@@ -47,25 +47,24 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li>
-                    <c:url value="formUtente" var="addCustomer">
+                    <c:url value="/utente/formUtente" var="addCustomer">
                         <c:param name="customerId" value="new"/>
+                        <c:param name="utenteRichiedente" value="superuser"/>
                     </c:url>
                     <a href="${addCustomer}" class="btn btn-link"><spring:message
                             code="header.superuser.aggiungiutente"/></a>
                 </li>
-                <c:url value="#" var="formDatePrenotazione">
-                    <c:param name="prenId" value="new"/>
+                <c:url value="/veicolo/formVeicolo" var="formVeicolo">
                 </c:url>
-                <li><a href="${formDatePrenotazione}" class="btn btn-link"><spring:message
+                <li><a href="${formVeicolo}" class="btn btn-link"><spring:message
                         code="header.superuser.aggiungiveicolo"/></a></li>
 
                 <li>
-                    <form action="#" method="get">
-                        <input type="hidden" name="superuserId" value="${superuser.id}">
-                        <button type="submit" class="btn btn-link"><spring:message
-                                code="header.superuser.visualizzaallprenotazioni"/></button>
-                    </form>
-
+                    <c:url value="/prenotazione/visualizzaPrenotazioni" var="visualizzaPrenotazioni">
+                        <c:param name="customerId" value="all"/>
+                    </c:url>
+                    <a href="${visualizzaPrenotazioni}" class="btn btn-link"><spring:message
+                            code="header.superuser.visualizzaallprenotazioni"/></a>
                 </li>
             </ul>
 

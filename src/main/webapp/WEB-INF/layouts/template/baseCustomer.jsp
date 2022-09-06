@@ -56,6 +56,7 @@
                 <li>
                     <form action="formUtente" method="get">
                         <input type="hidden" name="customerId" value="${customer.id}">
+                        <input type="hidden" name="utenteRichiedente" value="customer">
                         <button type="submit" class="btn btn-link"><spring:message code="header.customer.modifica"/></button>
                     </form>
 

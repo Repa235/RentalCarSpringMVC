@@ -29,6 +29,15 @@ public class PrenotazioneServiceImpl implements PrenotazioneService{
 
     @Override
     public boolean deletePrenotazione(Prenotazione c) {
+        List<Prenotazione> prenotazioni = getAllPrenotazioni();
+        for (Prenotazione p : prenotazioni) {
+            if (p.getId().equals(c.getId())) {
+                System.out.println("Elimino la prenotazione n°: " + c.getId());
+                deletePrenotazione(c);
+                break;
+            }
+        }
         return prenotazioneDao.deletePrenotazione(c);
+
     }
 }

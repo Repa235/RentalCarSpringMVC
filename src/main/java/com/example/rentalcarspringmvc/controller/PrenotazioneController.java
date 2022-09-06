@@ -1,7 +1,9 @@
 package com.example.rentalcarspringmvc.controller;
 
 import com.example.rentalcarspringmvc.dto.PrenotazioneDto;
+import com.example.rentalcarspringmvc.dto.UtenteDto;
 import com.example.rentalcarspringmvc.entities.Prenotazione;
+import com.example.rentalcarspringmvc.entities.Utente;
 import com.example.rentalcarspringmvc.entities.Veicolo;
 import com.example.rentalcarspringmvc.exception.DataParseException;
 import com.example.rentalcarspringmvc.mapper.PrenotazioneMapper;
@@ -17,7 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import static com.example.rentalcarspringmvc.util.MetodiUtil.parseDate;
 
 @Controller
 @RequestMapping("/prenotazione")
@@ -53,40 +59,25 @@ public class PrenotazioneController {
 
     @RequestMapping(value = "/selectVeicoloByDates", method = RequestMethod.POST)
     public String selectVeicoloByDates(Model model, final HttpServletRequest request) {
-        String dalS = request.getParameter("dal");
-        String alS = request.getParameter("al");
+        LocalDate dal = parseDate(request.getParameter("dal"));
+        LocalDate al = parseDate(request.getParameter("al"));
         String prenId = request.getParameter("prenId");
         System.out.println(prenId);
         // Se l'id della prenotazione esiste vuol dire che la prenotazione è da modificare, pertanto la prenotazione
-        //verrà eliminata per verificare la disponibilità del veicolo
+        //verrà eliminata per ri-verificare la disponibilità del veicolo
         if (!prenId.isEmpty()) {
             Prenotazione prenotazione = prenotazioneService.getPrenotazione(Long.parseLong(prenId));
-            List<Prenotazione> prenotazioni = prenotazioneService.getAllPrenotazioni();
-            for (Prenotazione p : prenotazioni) {
-                if (p.getId().equals(prenotazione.getId())) {
-                    System.out.println("Elimino la prenotazione: " + prenId);
-                    prenotazioneService.deletePrenotazione(prenotazione);
-                    break;
-                }
-            }
-
+            prenotazioneService.deletePrenotazione(prenotazione);
         }
-        if (dalS == null || dalS.isEmpty()) {
-            throw new DataParseException(dalS);
-        } else if (alS == null || alS.isEmpty()) {
-            throw new DataParseException(alS);
-        } else {
-            LocalDate dal = LocalDate.parse(dalS);
-            LocalDate al = LocalDate.parse(alS);
-            model.addAttribute("dal", dal);
-            model.addAttribute("al", al);
-            List<Veicolo> lv = veicoloService.getVeicoliLiberiNelRange(dal, al);
-            model.addAttribute("lv", lv);
-            PrenotazioneDto newPrenotazioneDto = new PrenotazioneDto();
-            model.addAttribute("newPrenotazioneDto", newPrenotazioneDto);
-            return "formPrenotazione";
-        }
+        model.addAttribute("dal", dal);
+        model.addAttribute("al", al);
+        List<Veicolo> lv = veicoloService.getVeicoliLiberiNelRange(dal, al);
+        model.addAttribute("lv", lv);
+        PrenotazioneDto newPrenotazioneDto = new PrenotazioneDto();
+        model.addAttribute("newPrenotazioneDto", newPrenotazioneDto);
+        return "formPrenotazione";
     }
+
 
     @ExceptionHandler(DataParseException.class)
     public ModelAndView handleError(HttpServletRequest request, DataParseException exception) {
@@ -99,7 +90,6 @@ public class PrenotazioneController {
     }
 
 
-
     @PostMapping(value = "/inserisciPrenotazione")
     public String inserisciPrenotazione(@Valid @ModelAttribute("newPrenotazioneDto") PrenotazioneDto newPrenotazioneDto, BindingResult result) {
         if (result.hasErrors()) {
@@ -110,5 +100,41 @@ public class PrenotazioneController {
         return "redirect:/utente/profiloCustomer";
     }
 
+    @GetMapping("/visualizzaPrenotazioni")
+    public String visualizzaProdotti(@RequestParam("customerId") String customerId, Model model) {
+
+        if (customerId.equals("") || customerId.isEmpty() || customerId.equals("all")  ) {
+            List<Prenotazione> prenotazioni = prenotazioneService.getAllPrenotazioni();
+            model.addAttribute("prenotazioni", prenotazioni);
+        } else {
+            Utente u = utenteService.getUtente(Long.parseLong(customerId));
+            Set<Prenotazione> prenotazioni = u.getPrenotazioni();
+            model.addAttribute("prenotazioni", prenotazioni);
+        }
+        return "visualizzaPrenotazioni";
+    }
+
+
+    @PostMapping("/gestisciPrenotazione")
+    public String gestisciPrenotazione(@RequestParam("prenotazioneId") String prenotazioneId,
+                                       @RequestParam("approva") String approva) {
+        if (approva.equals("true")) {
+            Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneId));
+            p.setApprovato(true);
+            prenotazioneService.saveOrUpdatePrenotazione(p);
+            return "redirect: /utente";
+        } else if (approva.equals("elimina")) {
+            Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneId));
+            prenotazioneService.deletePrenotazione(p);
+            return "redirect: /utente";
+        } else {
+            return "redirect: /utente";
+        }
+    }
+
+
 
 }
+
+
+

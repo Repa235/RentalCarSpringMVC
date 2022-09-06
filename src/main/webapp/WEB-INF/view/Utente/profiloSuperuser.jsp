@@ -31,21 +31,22 @@
                     <td>${cliente.cognome}</td>
                     <td>${cliente.dataNascita}</td>
                     <td>
-                        <form action="#" method="post">
-                            <input type="hidden" name="id" value="${cliente.id}">
+                        <form action="../prenotazione/visualizzaPrenotazioni" method="get">
+                            <input type="hidden" name="customerId" value="${cliente.id}">
                             <input type="submit" value="Visualizza">
                         </form>
                     </td>
                     <td>
-                        <form action="#" method="post">
-                            <input type="hidden" name="id" value="${cliente.id}">
+                        <form action="formUtente" method="get">
+                            <input type="hidden" name="customerId" value="${cliente.id}">
+                            <input type="hidden" name="utenteRichiedente" value="${superuser.tipo}">
                             <input type="submit" value="Modifica">
                         </form>
                     </td>
                     </td>
                     <td>
-                        <form action="#" method="post">
-                            <input type="hidden" name="id" value="${cliente.id}">
+                        <form action="eliminaUtente" method="get">
+                            <input type="hidden" name="customerId" value="${cliente.id}">
                             <input type="submit" value="Elimina">
                         </form>
                     </td>

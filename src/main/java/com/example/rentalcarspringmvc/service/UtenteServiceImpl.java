@@ -27,7 +27,7 @@ public class UtenteServiceImpl implements UtenteService{
 
     @Override
     public boolean deleteUtente(Utente c) {
-        return deleteUtente(c);
+        return utenteDao.deleteUtente(c);
     }
 
     @Override
