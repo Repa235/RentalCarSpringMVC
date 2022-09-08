@@ -48,6 +48,10 @@ public class PrenotazioneController {
             Prenotazione prenotazione = prenotazioneService.getPrenotazione(Long.parseLong(prenId));
             request.setAttribute("prenotazione", prenotazione);
         }
+        String username = getUserFromSession();
+        Utente u = utenteService.getUsersByUsername(username).get(0);
+        Utente customer = utenteService.getUtente(u.getId());
+        request.setAttribute("customer", customer);
         return "dateSelector";
     }
 
@@ -60,6 +64,11 @@ public class PrenotazioneController {
 
     @RequestMapping(value = "/selectVeicoloByDates", method = RequestMethod.POST)
     public String selectVeicoloByDates(Model model, final HttpServletRequest request) {
+        String username = getUserFromSession();
+        Utente u = utenteService.getUsersByUsername(username).get(0);
+        Utente customer = utenteService.getUtente(u.getId());
+        model.addAttribute("customer", customer);
+
         LocalDate dal = parseDate(request.getParameter("dal"));
         LocalDate al = parseDate(request.getParameter("al"));
         String prenId = request.getParameter("prenId");

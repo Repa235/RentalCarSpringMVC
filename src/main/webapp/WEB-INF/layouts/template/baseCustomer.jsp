@@ -26,10 +26,11 @@
             </a>
             <div style="width: 100px"></div>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="" class="nav-link px-2 text-white"><spring:message code="header.home"/></a></li>
-                <c:url var="parcoAuto" value="veicolo" />
-                <li><a href="../${parcoAuto}" class="nav-link px-2 text-white"><spring:message code="header.parcoauto"/></a></li>
-                <c:url var="toProfilo" value="utente/toProfilo" />
+                <li><a href="/**" class="nav-link px-2 text-white"><spring:message code="header.home"/></a></li>
+                <c:url var="parcoAuto" value="veicolo"/>
+                <li><a href="../${parcoAuto}" class="nav-link px-2 text-white"><spring:message
+                        code="header.parcoauto"/></a></li>
+                <c:url var="toProfilo" value="/utente/toProfilo" />
                 <li><a href="${toProfilo}" class="nav-link px-2 text-white">Profilo utente</a></li>
             </ul>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -56,7 +57,7 @@
                 <li><a href="${formDatePrenotazione}" class="btn btn-link"><spring:message code="header.customer.prenotaveicolo"/></a></li>
 
                 <li>
-                    <form action="formUtente" method="get">
+                    <form action="../utente/formUtente" method="get">
                         <input type="hidden" name="customerId" value="${customer.id}">
                         <input type="hidden" name="utenteRichiedente" value="customer">
                         <button type="submit" class="btn btn-link"><spring:message code="header.customer.modifica"/></button>

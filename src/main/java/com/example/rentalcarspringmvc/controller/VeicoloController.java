@@ -39,6 +39,10 @@ public class VeicoloController {
 
     @GetMapping("/visualizzaVeicoliUtente")
     public String visualizzaVeicoliUtente(Model model){
+        String username = getUserFromSession();
+        Utente u = utenteService.getUsersByUsername(username).get(0);
+        Utente customer = utenteService.getUtente(u.getId());
+        model.addAttribute("customer", customer);
         List<Veicolo> veicoli = veicoloService.getVeicoli();
         model.addAttribute("ListVeicoli", veicoli);
         return "visualizzaVeicoliUtente";

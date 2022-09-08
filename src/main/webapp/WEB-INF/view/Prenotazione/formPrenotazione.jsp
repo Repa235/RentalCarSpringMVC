@@ -16,7 +16,7 @@
         </div>
         <form:form method="POST" action="inserisciPrenotazione" modelAttribute="newPrenotazioneDto" class="form-control">
             <form:errors path="*" element="div"/>
-            <form:hidden path="idUtente" value="2"/>
+            <form:hidden path="idUtente" value="${customer.id}"/>
             <form:hidden path="dataInizio" value="${dal}"/>
             <form:hidden path="dataFine" value="${al}"/>
             <p>Dal: ${dal}</p>
