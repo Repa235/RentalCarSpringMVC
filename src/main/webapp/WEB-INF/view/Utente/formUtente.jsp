@@ -31,15 +31,16 @@
                 <span class="input-group-text" id="basic-addon1">Data di nascita</span>
                 <form:input path="dataNascita" type="date" class="form-control" value="${customer.dataNascita}"/>
             </div>
-
-            <div class="input-group mb-3">
-                <span class="input-group-text">Username</span>
-                <form:input path="username" type="text" class="form-control" placeholder="Username"
-                            value="${customer.username}"/>
-                <span class="input-group-text">Password</span>
-                <form:input path="password" type="text" class="form-control" placeholder="Password"
-                            value="${customer.password}"/>
-            </div>
+            <c:if test="${customer.id==null}">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Username</span>
+                    <form:input path="username" type="text" class="form-control" placeholder="Username"
+                                value="${customer.username}"/>
+                    <span class="input-group-text">Password</span>
+                    <form:input path="password" type="text" class="form-control" placeholder="Password"
+                                value="${customer.password}"/>
+                </div>
+            </c:if>
 
             <button type="submit" class="btn btn-primary">Invia dati</button>
         </form:form>

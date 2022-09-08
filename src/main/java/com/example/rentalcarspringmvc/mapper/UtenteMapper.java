@@ -1,18 +1,18 @@
 package com.example.rentalcarspringmvc.mapper;
 
-import com.example.rentalcarspringmvc.dto.PrenotazioneDto;
 import com.example.rentalcarspringmvc.dto.UtenteDto;
 import com.example.rentalcarspringmvc.entities.Utente;
-import com.example.rentalcarspringmvc.entities.Utente;
-import com.example.rentalcarspringmvc.entities.Veicolo;
 import com.example.rentalcarspringmvc.repository.UtenteDao;
 import com.example.rentalcarspringmvc.repository.UtenteDaoImpl;
-import com.example.rentalcarspringmvc.repository.VeicoloDao;
-import com.example.rentalcarspringmvc.repository.VeicoloDaoImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 
 public class UtenteMapper {
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+
 
     public static Utente fromDtoToEntityModify(UtenteDto utenteDto) {
         UtenteDao ud = new UtenteDaoImpl();
@@ -21,11 +21,7 @@ public class UtenteMapper {
                 Long.parseLong(utenteDto.getId()),
                 utenteDto.getNome(),
                 utenteDto.getCognome(),
-                LocalDate.parse(utenteDto.getDataNascita()),
-                utenteDto.getTipo(),
-                utenteDto.getUsername(),
-                utenteDto.getPassword(),
-                u.getPrenotazioni()
+                LocalDate.parse(utenteDto.getDataNascita())
         );
     }
 

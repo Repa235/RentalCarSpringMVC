@@ -41,6 +41,13 @@ public class Utente implements Serializable {
     public Utente() {
     }
 
+    public Utente(Long id, String nome, String cognome, LocalDate dataNascita) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.dataNascita = dataNascita;
+    }
+
     public Utente(Long id, String nome, String cognome, LocalDate dataNascita, String tipo, String username, String password, Set<Prenotazione> prenotazioni) {
         this.id = id;
         this.nome = nome;
