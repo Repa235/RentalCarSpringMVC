@@ -16,12 +16,12 @@
         </div>
         <form:form method="POST" action="inserisciPrenotazione" modelAttribute="newPrenotazioneDto" class="form-control">
             <form:errors path="*" element="div"/>
-            <form:hidden path="id_utente" value="2"/>
+            <form:hidden path="idUtente" value="2"/>
             <form:hidden path="dataInizio" value="${dal}"/>
             <form:hidden path="dataFine" value="${al}"/>
             <p>Dal: ${dal}</p>
             <p>Al: ${al}</p>
-            <form:select path="id_veicolo" cssClass="form-control">
+            <form:select path="idVeicolo" cssClass="form-control">
                 <c:forEach var="v" items="${lv}">
                     <form:option value="${v.id}" label="${v.casaCostruttrice} ${v.modello}"/>
                 </c:forEach>

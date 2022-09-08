@@ -76,6 +76,17 @@
         <put-attribute name="titolo" value="Visualizza prenotazioni"/>
         <put-attribute name="content" value="/WEB-INF/view/Prenotazione/visualizzaPrenotazioni.jsp"/>
     </definition>
+    <!-- Layout Login -->
+    <definition name="baseLoginLayout" template="/WEB-INF/layouts/template/baseLogin.jsp">
+        <put-attribute name="titolo" value=""/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp"/>
+    </definition>
+
+    <definition name="login" extends="baseLoginLayout">
+        <put-attribute name="titolo" value="Accesso al sito"/>
+        <put-attribute name="content" value="/WEB-INF/view/login.jsp"/>
+    </definition>
 
     <!-- Eccezioni -->
     <definition name="NoDataParse" extends="baseLayout">

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.example.rentalcarspringmvc.util.MetodiUtil.getUserFromSession;
 import static com.example.rentalcarspringmvc.util.MetodiUtil.parseDate;
 
 @Controller
@@ -104,6 +105,10 @@ public class PrenotazioneController {
     public String visualizzaProdotti(@RequestParam("customerId") String customerId, Model model) {
 
         if (customerId.equals("") || customerId.isEmpty() || customerId.equals("all")  ) {
+            String username = getUserFromSession();
+            Utente u = utenteService.getUsersByUsername(username).get(0);
+            Utente superuser = utenteService.getUtente(u.getId());
+            model.addAttribute("superuser", superuser);
             List<Prenotazione> prenotazioni = prenotazioneService.getAllPrenotazioni();
             model.addAttribute("prenotazioni", prenotazioni);
         } else {
@@ -122,13 +127,13 @@ public class PrenotazioneController {
             Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneId));
             p.setApprovato(true);
             prenotazioneService.saveOrUpdatePrenotazione(p);
-            return "redirect: /utente";
+            return "redirect: visualizzaPrenotazioni?customerId=all";
         } else if (approva.equals("elimina")) {
             Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneId));
             prenotazioneService.deletePrenotazione(p);
-            return "redirect: /utente";
+            return "redirect: visualizzaPrenotazioni?customerId=all";
         } else {
-            return "redirect: /utente";
+            return "redirect: visualizzaPrenotazioni?customerId=all";
         }
     }
 

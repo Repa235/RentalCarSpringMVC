@@ -20,6 +20,7 @@
             </h1>
             <p class="lead"><spring:message code="home.descrizione.label"></spring:message></p>
         </div>
+
     </div>
 </div>
 
