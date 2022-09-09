@@ -8,16 +8,16 @@ public class UtenteDto {
 
 
    private String id;
-   @NotEmpty(message="{errore.formutente.nome.nullo}")
+   @NotEmpty(message="Il NOME non può essere nullo")
    private String nome;
-   @NotEmpty(message="{errore.formutente.cognome.nullo}")
+   @NotEmpty(message="Il COGNOME non può essere nullo")
    private String cognome;
-   @NotEmpty(message="{errore.formutente.datanascita.nullo}")
+   @NotEmpty(message="La DATA DI NASCITA non può essere nulla")
    private String dataNascita;
    private String tipo;
-   @NotEmpty(message="{errore.formutente.username.nullo}")
+   @NotEmpty(message="Inserire USERNAME")
    private String username;
-   @NotEmpty(message="{errore.formutente.password.nullo}")
+   @NotEmpty(message="inserire PASSWORD")
    private String password;
 
    public String getId() {

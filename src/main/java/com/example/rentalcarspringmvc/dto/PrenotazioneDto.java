@@ -8,9 +8,9 @@ public class PrenotazioneDto {
     private String id;
     private String idUtente;
     private String idVeicolo;
-@NotEmpty(message = "{errore.datainizio.nullo}")
+@NotEmpty(message = "La data di inizio non pùò essere nulla")
     private String dataInizio;
-    @NotEmpty(message = "{errore.datafine.nullo}")
+    @NotEmpty(message = "La data di fine non può essere nulla")
 private String dataFine;
     private String isApprovato;
 
