@@ -34,7 +34,7 @@ public class HibernateConfig {
 
     private static Map<String, String> dbSettings() {
         Map<String, String> dbSettings = new HashMap<>();
-        dbSettings.put(Environment.URL, "jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true");
+        dbSettings.put(Environment.URL, "jdbc:mysql://localhost:3306/mydb?serverTimezone=Europe/Rome&useSSL=false&allowPublicKeyRetrieval=true");
         dbSettings.put(Environment.USER, "root");
         dbSettings.put(Environment.PASS, "root");
         dbSettings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
