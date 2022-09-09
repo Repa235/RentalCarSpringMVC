@@ -23,10 +23,6 @@ public class LoginController {
 
     @GetMapping("/logout")
     public String getLoginPost(HttpServletRequest request, HttpServletResponse response) {
-
-     //  String[] test = request.getParameterValues("logout");
-
-       // if (test != null) {
             SecurityContextHolder.clearContext();
             HttpSession session = request.getSession();
             if (session != null) {
@@ -36,8 +32,6 @@ public class LoginController {
                 cookie.setMaxAge(-1);
             }
 
-
-       // }
         return "redirect:/Homepage";
     }
 }

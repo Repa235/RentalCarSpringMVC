@@ -82,7 +82,7 @@ public class VeicoloDaoImpl implements VeicoloDao {
 
     @Override
     public List<Veicolo> getVeicoliLiberiNelRange(LocalDate dataSceltaI, LocalDate dataSceltaF) {
-        //Prelevo la lista di prenotazioni approvate nel range
+
         Session session = HibernateConfig.getSessionFactory().openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Veicolo> cr = cb.createQuery(Veicolo.class);
@@ -104,8 +104,6 @@ public class VeicoloDaoImpl implements VeicoloDao {
         Query<Veicolo> query = session.createQuery(cr);
         List<Veicolo> veicoliPrenotatiNelRange = query.getResultList();
 
-        //Adesso che ho la lista dei veicoli prenotati nel range
-        //mi prendo tutti i veicoli che non ricadono in questa lista
         List<Veicolo> veicoliLiberiNelRange = new ArrayList<Veicolo>();
         if (veicoliPrenotatiNelRange.isEmpty()) {
             veicoliLiberiNelRange = getVeicoli();

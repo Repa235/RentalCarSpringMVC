@@ -88,6 +88,18 @@
         <put-attribute name="content" value="/WEB-INF/view/login.jsp"/>
     </definition>
 
+    <!-- Errori -->
+    <definition name="twoDays" extends="baseLayout">
+        <put-attribute name="titolo" value="Errore"/>
+        <put-attribute name="content" value="/WEB-INF/view/Errori/twoDays.jsp"/>
+    </definition>
+
+    <definition name="fineAfterInizio" extends="baseLayout">
+        <put-attribute name="titolo" value="Errore"/>
+        <put-attribute name="content" value="/WEB-INF/view/Errori/fineAfterInizio.jsp"/>
+    </definition>
+
+
     <!-- Eccezioni -->
     <definition name="NoDataParse" extends="baseLayout">
         <put-attribute name="titolo" value="Data non inserita"/>

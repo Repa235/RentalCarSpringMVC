@@ -25,6 +25,7 @@ import java.util.Set;
 
 import static com.example.rentalcarspringmvc.util.MetodiUtil.getUserFromSession;
 import static com.example.rentalcarspringmvc.util.MetodiUtil.parseDate;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
 @RequestMapping("/prenotazione")
@@ -42,11 +43,12 @@ public class PrenotazioneController {
 
     @GetMapping("/dateSelector")
     public String dateSelector(HttpServletRequest request, @RequestParam("prenId") String prenId) {
-        //Le prenotazioni nuove verranno contrassegnate da new mentre quelle già presenti avranno il loro id
-        // magari dovrei mettere un'eccezione quando l'id non è presente
         if (!prenId.equals("new")) {
             Prenotazione prenotazione = prenotazioneService.getPrenotazione(Long.parseLong(prenId));
-            request.setAttribute("prenotazione", prenotazione);
+            LocalDate oggi = LocalDate.now();
+            if (DAYS.between(oggi, prenotazione.getDataInizio()) >= 2) {
+                return "twoDays";
+            } else request.setAttribute("prenotazione", prenotazione);
         }
         String username = getUserFromSession();
         Utente u = utenteService.getUsersByUsername(username).get(0);
@@ -57,8 +59,15 @@ public class PrenotazioneController {
 
     @GetMapping("/eliminaPrenotazione")
     public String eliminaPrenotazione(HttpServletRequest request, @RequestParam("prenId") String prenId) {
-        prenotazioneService.deletePrenotazione(
-                prenotazioneService.getPrenotazione(Long.parseLong(prenId)));
+
+        LocalDate oggi = LocalDate.now();
+        Prenotazione prenotazione = prenotazioneService.getPrenotazione(Long.parseLong(prenId));
+        if (DAYS.between(oggi, prenotazione.getDataInizio()) >= 2) {
+            return "twoDays";
+        } else {
+            prenotazioneService.deletePrenotazione(
+                    prenotazioneService.getPrenotazione(Long.parseLong(prenId)));
+        }
         return "redirect:/utente/profiloCustomer";
     }
 
@@ -71,21 +80,26 @@ public class PrenotazioneController {
 
         LocalDate dal = parseDate(request.getParameter("dal"));
         LocalDate al = parseDate(request.getParameter("al"));
-        String prenId = request.getParameter("prenId");
-        System.out.println(prenId);
-        // Se l'id della prenotazione esiste vuol dire che la prenotazione è da modificare, pertanto la prenotazione
-        //verrà eliminata per ri-verificare la disponibilità del veicolo
-        if (!prenId.isEmpty()) {
-            Prenotazione prenotazione = prenotazioneService.getPrenotazione(Long.parseLong(prenId));
-            prenotazioneService.deletePrenotazione(prenotazione);
+
+        if (dal.isAfter(al)) {
+            return "fineAfterInizio";
+        } else {
+            String prenId = request.getParameter("prenId");
+            System.out.println(prenId);
+            // Se l'id della prenotazione esiste vuol dire che la prenotazione è da modificare, pertanto la prenotazione
+            //verrà eliminata per ri-verificare la disponibilità del veicolo
+            if (!prenId.isEmpty()) {
+                Prenotazione prenotazione = prenotazioneService.getPrenotazione(Long.parseLong(prenId));
+                prenotazioneService.deletePrenotazione(prenotazione);
+            }
+            model.addAttribute("dal", dal);
+            model.addAttribute("al", al);
+            List<Veicolo> lv = veicoloService.getVeicoliLiberiNelRange(dal, al);
+            model.addAttribute("lv", lv);
+            PrenotazioneDto newPrenotazioneDto = new PrenotazioneDto();
+            model.addAttribute("newPrenotazioneDto", newPrenotazioneDto);
+            return "formPrenotazione";
         }
-        model.addAttribute("dal", dal);
-        model.addAttribute("al", al);
-        List<Veicolo> lv = veicoloService.getVeicoliLiberiNelRange(dal, al);
-        model.addAttribute("lv", lv);
-        PrenotazioneDto newPrenotazioneDto = new PrenotazioneDto();
-        model.addAttribute("newPrenotazioneDto", newPrenotazioneDto);
-        return "formPrenotazione";
     }
 
 
@@ -113,7 +127,7 @@ public class PrenotazioneController {
     @GetMapping("/visualizzaPrenotazioni")
     public String visualizzaProdotti(@RequestParam("customerId") String customerId, Model model) {
 
-        if (customerId.equals("") || customerId.isEmpty() || customerId.equals("all")  ) {
+        if (customerId.equals("") || customerId.isEmpty() || customerId.equals("all")) {
             String username = getUserFromSession();
             Utente u = utenteService.getUsersByUsername(username).get(0);
             Utente superuser = utenteService.getUtente(u.getId());
@@ -145,7 +159,6 @@ public class PrenotazioneController {
             return "redirect: visualizzaPrenotazioni?customerId=all";
         }
     }
-
 
 
 }

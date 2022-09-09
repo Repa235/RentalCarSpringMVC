@@ -64,6 +64,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/prenotazione/selectVeicoloByDates",
             "/prenotazione/inserisciPrenotazione",
             "/veicolo/visualizzaVeicoliUtente",
+            "/utente/profiloCustomer",
+    };
+
+    public static final String[] USERACTION_4ALL_MATCHER = {
+            "/utente/toProfilo",
+            "/utente/formUtente",
+            "/utente/modificaAggiungiUtente",
+
     };
 
 
@@ -76,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/veicolo").permitAll()
                 //Riservate al superuser
-                .antMatchers("/utente/**").access("hasAnyRole('ADMIN','USER')")
+                .antMatchers(USERACTION_4ALL_MATCHER).access("hasAnyRole('ADMIN','USER')")
                 .antMatchers(ADMIN_URL_MATCHER).access("hasRole('ADMIN')")
                 //Riservate a customer e superuser
                 .antMatchers(USER_URL_MATCHER).access("hasRole('USER')")

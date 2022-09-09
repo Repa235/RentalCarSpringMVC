@@ -66,10 +66,6 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 
     @Bean
     public LocaleResolver localeResolver() {
-    /*
-    Session LocaleResolver resolver = new Session Locale Resolver();
-    * resolver.setDefaultLocale(new Locale("it")); return resolver;
-    */
         CookieLocaleResolver r = new CookieLocaleResolver();
         r.setCookieName("localeInfo");
         r.setCookieMaxAge(24 * 60 * 60);
