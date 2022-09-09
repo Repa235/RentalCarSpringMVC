@@ -24,11 +24,11 @@
                 <p><spring:message code="login.form.logout"/></p>
             </c:if>
             <div class="form-floating">
-                <input type="text" name="userId" class="form-control" id="floatingInput" placeholder="username">
+                <input type="text" name="userId" class="form-control" id="floatingInput" placeholder="username" required>
                 <label for="floatingInput">Username</label>
             </div>
             <div class="form-floating">
-                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
                 <label for="floatingPassword">Password</label>
             </div>
 

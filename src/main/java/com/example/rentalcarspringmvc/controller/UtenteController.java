@@ -39,7 +39,7 @@ public class UtenteController {
             return "redirect: ../form/login";
         } else {
             Utente u = utenteService.getUsersByUsername(username).get(0);
-            if(u.getTipo()=="customer"){
+            if(u.getTipo().equals("customer")){
                 return "redirect: ../utente/profiloCustomer";
             } else {
                 return "redirect: ../utente/profiloSuperuser";
