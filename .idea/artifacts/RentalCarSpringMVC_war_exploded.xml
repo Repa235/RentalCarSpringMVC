@@ -96,6 +96,8 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.8" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:5.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:5.1.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:5.1.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:5.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.3.13" />
         </element>

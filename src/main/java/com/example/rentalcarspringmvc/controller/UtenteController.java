@@ -34,6 +34,7 @@ public class UtenteController {
     @GetMapping("/toProfilo")
     public String toProfilo() {
         String username = getUserFromSession();
+        LOGGER.info(username);
         if(username=="anonymousUser"){
             return "redirect: ../form/login";
         } else {

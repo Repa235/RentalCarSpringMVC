@@ -29,13 +29,10 @@
             </div>
             <div class="form-floating">
                 <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-ì                <label for="floatingPassword">Password</label>
+                <label for="floatingPassword">Password</label>
             </div>
 
             <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
             </div>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>

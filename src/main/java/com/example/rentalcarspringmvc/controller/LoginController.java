@@ -13,32 +13,31 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/login/form")
+@RequestMapping
 public class LoginController {
-    @GetMapping
+    @GetMapping("/login/form")
     public String getLogin(Model model) {
         return "login";
     }
 
 
-    @PostMapping
+    @GetMapping("/logout")
     public String getLoginPost(HttpServletRequest request, HttpServletResponse response) {
 
-        String[] test = request.getParameterValues("logout");
+     //  String[] test = request.getParameterValues("logout");
 
-        if (test != null) {
-            HttpSession session = request.getSession(false);
+       // if (test != null) {
             SecurityContextHolder.clearContext();
-            session = request.getSession(false);
+            HttpSession session = request.getSession();
             if (session != null) {
                 session.invalidate();
             }
             for (Cookie cookie : request.getCookies()) {
-                cookie.setMaxAge(0);
+                cookie.setMaxAge(-1);
             }
 
 
-        }
-        return "redirect:/login/form?logout";
+       // }
+        return "redirect:/Homepage";
     }
 }

@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -26,12 +27,16 @@
             </a>
             <div style="width: 100px"></div>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/**" class="nav-link px-2 text-white"><spring:message code="header.home"/></a></li>
+                <li><a href="../Homepage" class="nav-link px-2 text-white"><spring:message code="header.home"/></a></li>
                 <c:url var="parcoAuto" value="veicolo"/>
                 <li><a href="../${parcoAuto}" class="nav-link px-2 text-white"><spring:message
                         code="header.parcoauto"/></a></li>
                 <c:url var="toProfilo" value="/utente/toProfilo" />
                 <li><a href="${toProfilo}" class="nav-link px-2 text-white">Profilo utente</a></li>
+                <sec:authorize access="isAuthenticated()">
+                    <c:url var="toLogout" value="/logout" />
+                    <li><a href="${toLogout}" class="nav-link px-2 text-white">Logout</a></li>
+                </sec:authorize>
             </ul>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a class="nav-link px-2 text-white" href="?language=en">EN</a></li>
