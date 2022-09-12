@@ -2,15 +2,19 @@ package com.example.rentalcarspringmvc.service;
 
 import com.example.rentalcarspringmvc.entities.Prenotazione;
 import com.example.rentalcarspringmvc.repository.PrenotazioneDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
-public class PrenotazioneServiceImpl implements PrenotazioneService{
 
-    @Autowired
+@Service
+public class PrenotazioneServiceImpl implements PrenotazioneService {
+
+    private final
     PrenotazioneDao prenotazioneDao;
+
+    public PrenotazioneServiceImpl(PrenotazioneDao prenotazioneDao) {
+        this.prenotazioneDao = prenotazioneDao;
+    }
 
     @Override
     public Prenotazione getPrenotazione(Long id) {
@@ -28,15 +32,8 @@ public class PrenotazioneServiceImpl implements PrenotazioneService{
     }
 
     @Override
-    public boolean deletePrenotazione(Prenotazione c) {
-        List<Prenotazione> prenotazioni = getAllPrenotazioni();
-        for (Prenotazione p : prenotazioni) {
-            if (p.getId().equals(c.getId())) {
-                System.out.println("Elimino la prenotazione n°: " + c.getId());
-                deletePrenotazione(c);
-                break;
-            }
-        }
+    public boolean deletePrenotazione(Long id) {
+        Prenotazione c = getPrenotazione(id);
         return prenotazioneDao.deletePrenotazione(c);
 
     }

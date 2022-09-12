@@ -7,12 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/")
 public class IndexController {
-    @RequestMapping(value = "index")
-    public String getWelcome(Model model) {
-        model.addAttribute("Intestazione", "Intestazione per prova");
-        model.addAttribute("ciao", "CIAO");
-        return "index";
-    }
 
 
     @RequestMapping

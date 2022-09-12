@@ -2,15 +2,18 @@ package com.example.rentalcarspringmvc.service;
 
 import com.example.rentalcarspringmvc.entities.Veicolo;
 import com.example.rentalcarspringmvc.repository.VeicoloDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 @Service
 public class VeicoloServiceImpl implements VeicoloService{
-    @Autowired
+    private final
     VeicoloDao veicoloDao;
+
+    public VeicoloServiceImpl(VeicoloDao veicoloDao) {
+        this.veicoloDao = veicoloDao;
+    }
 
     @Override
     public Veicolo getVeicolo(Long id) {

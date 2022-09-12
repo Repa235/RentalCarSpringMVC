@@ -1,6 +1,6 @@
 package com.example.rentalcarspringmvc.service;
 
-import antlr.StringUtils;
+
 import com.example.rentalcarspringmvc.entities.Utente;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,13 +27,12 @@ public class CustomUserDetailService implements UserDetailsService {
         if (username == null) {
             throw new UsernameNotFoundException("Username mancante");
         }
-        Utente utente = utenteService.getUsersByUsername(username).get(0);
+        Utente utente = utenteService.getUsersByUsername(username);
         if(utente==null){
             throw new UsernameNotFoundException("Utente non trovato");
         }
         LOGGER.info("Utente prelevato: " + utente.getNome() + " " + utente.getCognome());
-        UserBuilder builder = null;
-        builder = User.withUsername(utente.getUsername());
+        UserBuilder builder = User.withUsername(utente.getUsername());
         builder.password(utente.getPassword());
         if(utente.getTipo().equals("superuser")){
             builder.roles("ADMIN");

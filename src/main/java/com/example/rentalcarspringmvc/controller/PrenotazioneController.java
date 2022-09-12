@@ -51,7 +51,7 @@ public class PrenotazioneController {
             } else request.setAttribute("prenotazione", prenotazione);
         }
         String username = getUserFromSession();
-        Utente u = utenteService.getUsersByUsername(username).get(0);
+        Utente u = utenteService.getUsersByUsername(username);
         Utente customer = utenteService.getUtente(u.getId());
         request.setAttribute("customer", customer);
         return "dateSelector";
@@ -65,8 +65,7 @@ public class PrenotazioneController {
         if (DAYS.between(oggi, prenotazione.getDataInizio()) >= 2) {
             return "twoDays";
         } else {
-            prenotazioneService.deletePrenotazione(
-                    prenotazioneService.getPrenotazione(Long.parseLong(prenId)));
+            prenotazioneService.deletePrenotazione(Long.parseLong(prenId));
         }
         return "redirect:/utente/profiloCustomer";
     }
@@ -74,7 +73,7 @@ public class PrenotazioneController {
     @RequestMapping(value = "/selectVeicoloByDates", method = RequestMethod.POST)
     public String selectVeicoloByDates(Model model, final HttpServletRequest request) {
         String username = getUserFromSession();
-        Utente u = utenteService.getUsersByUsername(username).get(0);
+        Utente u = utenteService.getUsersByUsername(username);
         Utente customer = utenteService.getUtente(u.getId());
         model.addAttribute("customer", customer);
 
@@ -85,12 +84,11 @@ public class PrenotazioneController {
             return "fineAfterInizio";
         } else {
             String prenId = request.getParameter("prenId");
-            System.out.println(prenId);
             // Se l'id della prenotazione esiste vuol dire che la prenotazione è da modificare, pertanto la prenotazione
             //verrà eliminata per ri-verificare la disponibilità del veicolo
             if (!prenId.isEmpty()) {
                 Prenotazione prenotazione = prenotazioneService.getPrenotazione(Long.parseLong(prenId));
-                prenotazioneService.deletePrenotazione(prenotazione);
+                prenotazioneService.deletePrenotazione(prenotazione.getId());
             }
             model.addAttribute("dal", dal);
             model.addAttribute("al", al);
@@ -126,16 +124,14 @@ public class PrenotazioneController {
 
     @GetMapping("/visualizzaPrenotazioni")
     public String visualizzaProdotti(@RequestParam("customerId") String customerId, Model model) {
-
         if (customerId.equals("") || customerId.isEmpty() || customerId.equals("all")) {
             String username = getUserFromSession();
-            Utente u = utenteService.getUsersByUsername(username).get(0);
-            Utente superuser = utenteService.getUtente(u.getId());
+            Utente superuser = utenteService.getUsersByUsername(username);
             model.addAttribute("superuser", superuser);
             List<Prenotazione> prenotazioni = prenotazioneService.getAllPrenotazioni();
             model.addAttribute("prenotazioni", prenotazioni);
         } else {
-            Utente u = utenteService.getUtente(Long.parseLong(customerId));
+            Utente u = utenteService.getUsersByUsername(getUserFromSession());
             Set<Prenotazione> prenotazioni = u.getPrenotazioni();
             model.addAttribute("prenotazioni", prenotazioni);
         }
@@ -145,19 +141,17 @@ public class PrenotazioneController {
 
     @PostMapping("/gestisciPrenotazione")
     public String gestisciPrenotazione(@RequestParam("prenotazioneId") String prenotazioneId,
-                                       @RequestParam("approva") String approva) {
-        if (approva.equals("true")) {
+                                       @RequestParam("approva") String azione) {
+        if (azione.equals("true")) {
             Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneId));
             p.setApprovato(true);
             prenotazioneService.saveOrUpdatePrenotazione(p);
-            return "redirect: visualizzaPrenotazioni?customerId=all";
-        } else if (approva.equals("elimina")) {
+        } else if (azione.equals("elimina")) {
             Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneId));
-            prenotazioneService.deletePrenotazione(p);
-            return "redirect: visualizzaPrenotazioni?customerId=all";
-        } else {
-            return "redirect: visualizzaPrenotazioni?customerId=all";
+            prenotazioneService.deletePrenotazione(p.getId());
         }
+        return "redirect: visualizzaPrenotazioni?customerId=all";
+
     }
 
 

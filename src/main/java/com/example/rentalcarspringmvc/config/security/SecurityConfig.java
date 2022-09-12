@@ -80,9 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 //Parti di codice liberamente accessibili
                 .authorizeRequests()
-                .antMatchers("/login/**").permitAll()
-                .antMatchers("/").permitAll()
-                .antMatchers("/veicolo").permitAll()
+                .antMatchers("/veicolo", "/login/**", "/").permitAll()
                 //Riservate al superuser
                 .antMatchers(USERACTION_4ALL_MATCHER).access("hasAnyRole('ADMIN','USER')")
                 .antMatchers(ADMIN_URL_MATCHER).access("hasRole('ADMIN')")

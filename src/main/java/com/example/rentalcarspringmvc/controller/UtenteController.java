@@ -38,7 +38,7 @@ public class UtenteController {
         if(username=="anonymousUser"){
             return "redirect: ../form/login";
         } else {
-            Utente u = utenteService.getUsersByUsername(username).get(0);
+            Utente u = utenteService.getUsersByUsername(username);
             if(u.getTipo().equals("customer")){
                 return "redirect: ../utente/profiloCustomer";
             } else {
@@ -51,8 +51,7 @@ public class UtenteController {
     @GetMapping("/profiloCustomer")
     public String profiloCustomer(Model model) {
         String username = getUserFromSession();
-        Utente u = utenteService.getUsersByUsername(username).get(0);
-        Utente customer = utenteService.getUtente(u.getId());
+        Utente customer = utenteService.getUsersByUsername(username);
         LocalDate now = LocalDate.now();
         model.addAttribute("customer", customer);
         model.addAttribute("now", now);
@@ -62,8 +61,7 @@ public class UtenteController {
     @GetMapping("/profiloSuperuser")
     public String profiloSuperuser(Model model) {
         String username = getUserFromSession();
-        Utente u = utenteService.getUsersByUsername(username).get(0);
-        Utente superuser = utenteService.getUtente(u.getId());
+        Utente superuser = utenteService.getUsersByUsername(username);
         model.addAttribute("superuser", superuser);
         model.addAttribute("clienti", utenteService.getCustomers());
         return "profiloSuperuser";
@@ -72,14 +70,12 @@ public class UtenteController {
     @GetMapping("/searchUtenti")
     public String searchUtenti(Model model, HttpServletRequest request) {
         String username = getUserFromSession();
-        Utente u = utenteService.getUsersByUsername(username).get(0);
-        Utente superuser = utenteService.getUtente(u.getId());
+        Utente superuser = utenteService.getUsersByUsername(username);
         model.addAttribute("superuser", superuser);
         String filtraPer = request.getParameter("filtraPer");
         String text = request.getParameter("text");
         List<Utente> filtered;
-        filtered = utenteService.getCustomerByParam(filtraPer, text);
-        model.addAttribute("clienti", filtered);
+        model.addAttribute("clienti", utenteService.getCustomerByParam(filtraPer, text));
         return "profiloSuperuser";
     }
 
@@ -93,14 +89,14 @@ public class UtenteController {
             return "formUtente";
         } else if (utenteRichiedente.equals("superuser") && customerId.equals("new")) {
             String username = getUserFromSession();
-            Utente u = utenteService.getUsersByUsername(username).get(0);
+            Utente u = utenteService.getUsersByUsername(username);
             Utente superuser = utenteService.getUtente(u.getId());
             model.addAttribute("superuser", superuser);
             model.addAttribute("customerDto", new UtenteDto());
             return "formUtente4Add";
         } else if (utenteRichiedente.equals("superuser") && !customerId.equals("new")) {
             String username = getUserFromSession();
-            Utente u = utenteService.getUsersByUsername(username).get(0);
+            Utente u = utenteService.getUsersByUsername(username);
             Utente superuser = utenteService.getUtente(u.getId());
             model.addAttribute("superuser", superuser);
             Utente customer = utenteService.getUtente(Long.parseLong(customerId));
@@ -119,10 +115,8 @@ public class UtenteController {
         if (result.hasErrors()) {
             return "formUtente";
         }
-        System.out.println(customerDto.getNome());
-        String idU = customerDto.getId();
         customerDto.setPassword(passwordEncoder.encode(customerDto.getPassword()));
-        if (idU.isEmpty() || idU == null) {
+        if (customerDto.getId().isEmpty() || customerDto.getId() == null) {
             Utente customerToAdd = UtenteMapper.fromDtoToEntityAdd(customerDto);
             utenteService.saveOrUpdateUtente(customerToAdd);
         } else {
@@ -134,7 +128,7 @@ public class UtenteController {
 
     @GetMapping("/eliminaUtente")
     public String eliminaUtente(@RequestParam("customerId") String customerId) {
-        utenteService.deleteUtente(utenteService.getUtente(Long.parseLong(customerId)));
+        utenteService.deleteUtente(Long.parseLong(customerId));
         return "redirect: profiloSuperuser";
     }
 

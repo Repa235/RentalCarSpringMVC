@@ -77,14 +77,14 @@ public class UtenteDaoImpl implements UtenteDao {
     }
 
     @Override
-    public List<Utente> getUsersByUsername(String username) {
+    public Utente getUsersByUsername(String username) {
         Session session = HibernateConfig.getSessionFactory().openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Utente> cr = cb.createQuery(Utente.class);
         Root<Utente> root = cr.from(Utente.class);
         cr.select(root).where(cb.equal(root.get("username"), username));
         Query<Utente> query = session.createQuery(cr);
-        List<Utente> results = query.getResultList();
+        Utente results = query.getResultList().get(0);
         return  results;
     }
 

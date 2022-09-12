@@ -10,11 +10,17 @@ import com.example.rentalcarspringmvc.repository.UtenteDao;
 import com.example.rentalcarspringmvc.repository.UtenteDaoImpl;
 import com.example.rentalcarspringmvc.repository.VeicoloDao;
 import com.example.rentalcarspringmvc.repository.VeicoloDaoImpl;
+import com.example.rentalcarspringmvc.service.UtenteService;
+import com.example.rentalcarspringmvc.service.VeicoloService;
 
 import java.time.LocalDate;
 
 public class VeicoloMapper {
+    private static VeicoloService veicoloService;
 
+    public VeicoloMapper(VeicoloService veicoloService) {
+        this.veicoloService = veicoloService;
+    }
     public static Veicolo fromDtoToEntityModify(VeicoloDto veicoloDto) {
         VeicoloDao vd = new VeicoloDaoImpl();
         Veicolo v = vd.getVeicolo(Long.parseLong(veicoloDto.getId()));

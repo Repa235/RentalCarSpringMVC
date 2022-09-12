@@ -2,7 +2,6 @@ package com.example.rentalcarspringmvc.service;
 
 import com.example.rentalcarspringmvc.entities.Utente;
 import com.example.rentalcarspringmvc.repository.UtenteDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,8 +11,12 @@ import java.util.List;
 @Transactional
 public class UtenteServiceImpl implements UtenteService{
 
-    @Autowired
+    private final
     UtenteDao utenteDao;
+
+    public UtenteServiceImpl(UtenteDao utenteDao) {
+        this.utenteDao = utenteDao;
+    }
 
     @Override
     public Utente getUtente(Long id) {
@@ -26,7 +29,8 @@ public class UtenteServiceImpl implements UtenteService{
     }
 
     @Override
-    public boolean deleteUtente(Utente c) {
+    public boolean deleteUtente(Long id) {
+        Utente c = getUtente(id);
         return utenteDao.deleteUtente(c);
     }
 
@@ -36,7 +40,7 @@ public class UtenteServiceImpl implements UtenteService{
     }
 
     @Override
-    public List<Utente> getUsersByUsername(String username) {
+    public Utente getUsersByUsername(String username) {
         return utenteDao.getUsersByUsername(username);
     }
 

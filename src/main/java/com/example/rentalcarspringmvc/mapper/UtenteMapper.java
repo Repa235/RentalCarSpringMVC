@@ -9,14 +9,21 @@ import com.example.rentalcarspringmvc.repository.UtenteDao;
 import com.example.rentalcarspringmvc.repository.UtenteDaoImpl;
 import com.example.rentalcarspringmvc.repository.VeicoloDao;
 import com.example.rentalcarspringmvc.repository.VeicoloDaoImpl;
+import com.example.rentalcarspringmvc.service.UtenteService;
+import com.example.rentalcarspringmvc.service.VeicoloService;
 
 import java.time.LocalDate;
 
 public class UtenteMapper {
 
+    private static UtenteService utenteService;
+
+    public UtenteMapper(UtenteService utenteService) {
+        this.utenteService = utenteService;
+    }
+
     public static Utente fromDtoToEntityModify(UtenteDto utenteDto) {
-        UtenteDao ud = new UtenteDaoImpl();
-        Utente u = ud.getUtente(Long.parseLong(utenteDto.getId()));
+        Utente u = utenteService.getUtente(Long.parseLong(utenteDto.getId()));
         return new Utente(
                 Long.parseLong(utenteDto.getId()),
                 utenteDto.getNome(),
