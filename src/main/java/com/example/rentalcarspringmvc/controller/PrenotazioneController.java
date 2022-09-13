@@ -1,7 +1,6 @@
 package com.example.rentalcarspringmvc.controller;
 
 import com.example.rentalcarspringmvc.dto.PrenotazioneDto;
-import com.example.rentalcarspringmvc.dto.UtenteDto;
 import com.example.rentalcarspringmvc.entities.Prenotazione;
 import com.example.rentalcarspringmvc.entities.Utente;
 import com.example.rentalcarspringmvc.entities.Veicolo;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -123,8 +121,8 @@ public class PrenotazioneController {
     }
 
     @GetMapping("/visualizzaPrenotazioni")
-    public String visualizzaProdotti(@RequestParam("customerId") String customerId, Model model) {
-        if (customerId.equals("") || customerId.isEmpty() || customerId.equals("all")) {
+    public String visualizzaProdotti(@RequestParam("customerIdString") String customerIdString, Model model) {
+        if (customerIdString.equals("") || customerIdString.isEmpty() || customerIdString.equals("all")) {
             String username = getUserFromSession();
             Utente superuser = utenteService.getUsersByUsername(username);
             model.addAttribute("superuser", superuser);
@@ -140,14 +138,13 @@ public class PrenotazioneController {
 
 
     @PostMapping("/gestisciPrenotazione")
-    public String gestisciPrenotazione(@RequestParam("prenotazioneId") String prenotazioneId,
+    public String gestisciPrenotazione(@RequestParam("prenotazioneIdString") String prenotazioneIdString,
                                        @RequestParam("approva") String azione) {
+        Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneIdString));
         if (azione.equals("true")) {
-            Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneId));
             p.setApprovato(true);
             prenotazioneService.saveOrUpdatePrenotazione(p);
         } else if (azione.equals("elimina")) {
-            Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneId));
             prenotazioneService.deletePrenotazione(p.getId());
         }
         return "redirect: visualizzaPrenotazioni?customerId=all";

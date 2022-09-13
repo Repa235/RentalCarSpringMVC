@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.logging.Logger;
+
 import static com.example.rentalcarspringmvc.util.MetodiUtil.getUserFromSession;
 
 
@@ -35,11 +35,11 @@ public class UtenteController {
     public String toProfilo() {
         String username = getUserFromSession();
         LOGGER.info(username);
-        if(username=="anonymousUser"){
+        if (username == "anonymousUser") {
             return "redirect: ../form/login";
         } else {
             Utente u = utenteService.getUsersByUsername(username);
-            if(u.getTipo().equals("customer")){
+            if (u.getTipo().equals("customer")) {
                 return "redirect: ../utente/profiloCustomer";
             } else {
                 return "redirect: ../utente/profiloSuperuser";
@@ -70,43 +70,34 @@ public class UtenteController {
     @GetMapping("/searchUtenti")
     public String searchUtenti(Model model, HttpServletRequest request) {
         String username = getUserFromSession();
-        Utente superuser = utenteService.getUsersByUsername(username);
-        model.addAttribute("superuser", superuser);
+        model.addAttribute("superuser", utenteService.getUsersByUsername(username));
         String filtraPer = request.getParameter("filtraPer");
         String text = request.getParameter("text");
-        List<Utente> filtered;
         model.addAttribute("clienti", utenteService.getCustomerByParam(filtraPer, text));
         return "profiloSuperuser";
     }
 
     @GetMapping("/formUtente")
-    public String formUtente(@RequestParam("customerId") String customerId,
+    public String formUtente(@RequestParam("customerIdString") String customerIdString,
                              @RequestParam("utenteRichiedente") String utenteRichiedente, Model model) {
-        if (utenteRichiedente.equals("customer")) {
-            Utente customer = utenteService.getUtente(Long.parseLong(customerId));
-            model.addAttribute("customer", customer);
-            model.addAttribute("customerDto", new UtenteDto());
-            return "formUtente";
-        } else if (utenteRichiedente.equals("superuser") && customerId.equals("new")) {
-            String username = getUserFromSession();
-            Utente u = utenteService.getUsersByUsername(username);
-            Utente superuser = utenteService.getUtente(u.getId());
-            model.addAttribute("superuser", superuser);
-            model.addAttribute("customerDto", new UtenteDto());
-            return "formUtente4Add";
-        } else if (utenteRichiedente.equals("superuser") && !customerId.equals("new")) {
-            String username = getUserFromSession();
-            Utente u = utenteService.getUsersByUsername(username);
-            Utente superuser = utenteService.getUtente(u.getId());
-            model.addAttribute("superuser", superuser);
-            Utente customer = utenteService.getUtente(Long.parseLong(customerId));
-            model.addAttribute("customer", customer);
-            model.addAttribute("customerDto", new UtenteDto());
-            return "formUtente4Add";
-        } else {
-            return "redirect: ../";
+        Utente u = utenteService.getUsersByUsername(getUserFromSession());
+        model.addAttribute("customerDto", new UtenteDto());
+        switch (u.getTipo()) {
+            case "customer":
+                model.addAttribute("customer", u);
+                return "formUtente";
+            case "superuser":
+                model.addAttribute("superuser", u);
+                if (!customerIdString.equals("new")) {
+                    Utente customer = utenteService.getUtente(Long.parseLong(customerIdString));
+                    model.addAttribute("customer", customer);
+                }
+                return "formUtente4Add";
+            default:
+                return "redirect: ../";
         }
     }
+
 
 
     @PostMapping("/modificaAggiungiUtente")

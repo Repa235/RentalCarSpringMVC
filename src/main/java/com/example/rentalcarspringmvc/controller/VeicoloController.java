@@ -32,27 +32,20 @@ public class VeicoloController {
 
     @GetMapping()
     public String visualizzaAllVeicoli(Model model){
-        List<Veicolo> veicoli = veicoloService.getVeicoli();
-        model.addAttribute("ListVeicoli", veicoli);
+        model.addAttribute("ListVeicoli", veicoloService.getVeicoli());
         return "veicoli";
     }
 
     @GetMapping("/visualizzaVeicoliUtente")
     public String visualizzaVeicoliUtente(Model model){
-        String username = getUserFromSession();
-        Utente customer = utenteService.getUsersByUsername(username);
-        model.addAttribute("customer", customer);
-        List<Veicolo> veicoli = veicoloService.getVeicoli();
-        model.addAttribute("ListVeicoli", veicoli);
+        model.addAttribute("customer", utenteService.getUsersByUsername(getUserFromSession()));
+        model.addAttribute("ListVeicoli", veicoloService.getVeicoli());
         return "visualizzaVeicoliUtente";
     }
 
     @GetMapping("/formVeicolo")
     public String formVeicolo(Model model){
-        String username = getUserFromSession();
-        Utente u = utenteService.getUsersByUsername(username);
-        Utente superuser = utenteService.getUtente(u.getId());
-        model.addAttribute("superuser", superuser);
+        model.addAttribute("superuser", utenteService.getUsersByUsername(getUserFromSession()));
         model.addAttribute("veicoloDto", new VeicoloDto());
         return "formVeicolo";
     }
