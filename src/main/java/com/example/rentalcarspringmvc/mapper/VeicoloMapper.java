@@ -1,47 +1,37 @@
 package com.example.rentalcarspringmvc.mapper;
 
-import com.example.rentalcarspringmvc.dto.PrenotazioneDto;
-import com.example.rentalcarspringmvc.dto.UtenteDto;
+
 import com.example.rentalcarspringmvc.dto.VeicoloDto;
-import com.example.rentalcarspringmvc.entities.Prenotazione;
-import com.example.rentalcarspringmvc.entities.Utente;
 import com.example.rentalcarspringmvc.entities.Veicolo;
-import com.example.rentalcarspringmvc.repository.UtenteDao;
-import com.example.rentalcarspringmvc.repository.UtenteDaoImpl;
 import com.example.rentalcarspringmvc.repository.VeicoloDao;
 import com.example.rentalcarspringmvc.repository.VeicoloDaoImpl;
-import com.example.rentalcarspringmvc.service.UtenteService;
-import com.example.rentalcarspringmvc.service.VeicoloService;
-
-import java.time.LocalDate;
 
 public class VeicoloMapper {
-    private static VeicoloService veicoloService;
+    private static VeicoloDao veicolodao = new VeicoloDaoImpl();
 
-    public VeicoloMapper(VeicoloService veicoloService) {
-        this.veicoloService = veicoloService;
-    }
-    public static Veicolo fromDtoToEntityModify(VeicoloDto veicoloDto) {
-        VeicoloDao vd = new VeicoloDaoImpl();
-        Veicolo v = vd.getVeicolo(Long.parseLong(veicoloDto.getId()));
-        return new Veicolo(
-                Long.parseLong(veicoloDto.getId()),
-                veicoloDto.getCasaCostruttrice(),
-                veicoloDto.getModello(),
-                Integer.parseInt(veicoloDto.getAnnoImmatricolazione()),
-                veicoloDto.getTipo(),
-                v.getPrenotazioni()
-        );
+    public VeicoloMapper(VeicoloDao veicolodao) {
+        this.veicolodao = veicolodao;
     }
 
-    public static Veicolo fromDtoToEntityAdd(VeicoloDto veicoloDto) {
-        return new Veicolo(
-                veicoloDto.getCasaCostruttrice(),
-                veicoloDto.getModello(),
-                Integer.parseInt(veicoloDto.getAnnoImmatricolazione()),
-                veicoloDto.getTipo()
-        );
+    public static Veicolo fromDtoToEntity(VeicoloDto veicoloDto) {
+        if (!veicoloDto.getId().isEmpty()) {
+            Veicolo v = veicolodao.getVeicolo(Long.parseLong(veicoloDto.getId()));
+            return new Veicolo(
+                    Long.parseLong(veicoloDto.getId()),
+                    veicoloDto.getCasaCostruttrice(),
+                    veicoloDto.getModello(),
+                    Integer.parseInt(veicoloDto.getAnnoImmatricolazione()),
+                    veicoloDto.getTipo(),
+                    v.getPrenotazioni()
+            );
+        } else {
+            return new Veicolo(
+                    veicoloDto.getCasaCostruttrice(),
+                    veicoloDto.getModello(),
+                    Integer.parseInt(veicoloDto.getAnnoImmatricolazione()),
+                    veicoloDto.getTipo()
+            );
+        }
     }
-
 }
 

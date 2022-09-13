@@ -51,7 +51,7 @@ public class VeicoloController {
     }
     @PostMapping("/aggiungiVeicolo")
     public String aggiungiVeicolo(@ModelAttribute("veicoloDto") VeicoloDto veicoloDto){
-        Veicolo v = VeicoloMapper.fromDtoToEntityAdd(veicoloDto);
+        Veicolo v = VeicoloMapper.fromDtoToEntity(veicoloDto);
         veicoloService.saveOrUpdateVeicolo(v);
         return "redirect: ../utente/profiloSuperuser";
     }

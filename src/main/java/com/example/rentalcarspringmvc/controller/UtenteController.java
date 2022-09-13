@@ -78,7 +78,7 @@ public class UtenteController {
     }
 
     @GetMapping("/formUtente")
-    public String formUtente(@RequestParam("customerIdString") String customerIdString,
+    public String formUtente(@RequestParam("customerId") String customerIdString,
                              @RequestParam("utenteRichiedente") String utenteRichiedente, Model model) {
         Utente u = utenteService.getUsersByUsername(getUserFromSession());
         model.addAttribute("customerDto", new UtenteDto());
@@ -107,13 +107,8 @@ public class UtenteController {
             return "formUtente";
         }
         customerDto.setPassword(passwordEncoder.encode(customerDto.getPassword()));
-        if (customerDto.getId().isEmpty() || customerDto.getId() == null) {
-            Utente customerToAdd = UtenteMapper.fromDtoToEntityAdd(customerDto);
+            Utente customerToAdd = UtenteMapper.fromDtoToEntity(customerDto);
             utenteService.saveOrUpdateUtente(customerToAdd);
-        } else {
-            Utente customerToModify = UtenteMapper.fromDtoToEntityModify(customerDto);
-            utenteService.saveOrUpdateUtente(customerToModify);
-        }
         return "redirect:../";
     }
 

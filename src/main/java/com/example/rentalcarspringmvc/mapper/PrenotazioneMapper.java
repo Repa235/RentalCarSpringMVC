@@ -4,44 +4,47 @@ import com.example.rentalcarspringmvc.dto.PrenotazioneDto;
 import com.example.rentalcarspringmvc.entities.Prenotazione;
 import com.example.rentalcarspringmvc.entities.Utente;
 import com.example.rentalcarspringmvc.entities.Veicolo;
-import com.example.rentalcarspringmvc.service.UtenteService;
-import com.example.rentalcarspringmvc.service.VeicoloService;
+import com.example.rentalcarspringmvc.repository.UtenteDao;
+import com.example.rentalcarspringmvc.repository.UtenteDaoImpl;
+import com.example.rentalcarspringmvc.repository.VeicoloDao;
+import com.example.rentalcarspringmvc.repository.VeicoloDaoImpl;
+
 
 import java.time.LocalDate;
 
 public class PrenotazioneMapper {
 
-    private static VeicoloService veicoloService;
-    private static UtenteService utenteService;
+    private static VeicoloDao veicolodao = new VeicoloDaoImpl();
+    private static UtenteDao utentedao = new UtenteDaoImpl();
 
-    public PrenotazioneMapper(VeicoloService veicoloService, UtenteService utenteService) {
-        this.veicoloService = veicoloService;
-        this.utenteService = utenteService;
+    public PrenotazioneMapper(VeicoloDao veicolodao, UtenteDao utentedao) {
+        this.veicolodao = veicolodao;
+        this.utentedao = utentedao;
     }
 
 
-    public static Prenotazione fromDtoToEntityModify(PrenotazioneDto prenotazioneDto) {
-        Utente u = utenteService.getUtente(Long.parseLong(prenotazioneDto.getIdUtente()));
-        Veicolo v = veicoloService.getVeicolo(Long.parseLong(prenotazioneDto.getIdVeicolo()));
-        return new Prenotazione(
-                Long.parseLong(prenotazioneDto.getId()),
-                u,
-                v,
-                LocalDate.parse(prenotazioneDto.getDataInizio()),
-                LocalDate.parse(prenotazioneDto.getDataFine()),
-                Boolean.parseBoolean(prenotazioneDto.getIsApprovato())
-        );
-    }
-
-    public static Prenotazione fromDtoToEntityAdd(PrenotazioneDto prenotazioneDto) {
-        Utente u = utenteService.getUtente(Long.parseLong(prenotazioneDto.getIdUtente()));
-        Veicolo v = veicoloService.getVeicolo(Long.parseLong(prenotazioneDto.getIdVeicolo()));
-        return new Prenotazione(
-                u,
-                v,
-                LocalDate.parse(prenotazioneDto.getDataInizio()),
-                LocalDate.parse(prenotazioneDto.getDataFine()),
-                Boolean.parseBoolean(prenotazioneDto.getIsApprovato())
-        );
+    public static Prenotazione fromDtoToEntity(PrenotazioneDto prenotazioneDto) {
+        if (!prenotazioneDto.getId().isEmpty()) {
+            Utente u = utentedao.getUtente(Long.parseLong(prenotazioneDto.getIdUtente()));
+            Veicolo v = veicolodao.getVeicolo(Long.parseLong(prenotazioneDto.getIdVeicolo()));
+            return new Prenotazione(
+                    Long.parseLong(prenotazioneDto.getId()),
+                    u,
+                    v,
+                    LocalDate.parse(prenotazioneDto.getDataInizio()),
+                    LocalDate.parse(prenotazioneDto.getDataFine()),
+                    Boolean.parseBoolean(prenotazioneDto.getIsApprovato())
+            );
+        } else {
+            Utente u = utentedao.getUtente(Long.parseLong(prenotazioneDto.getIdUtente()));
+            Veicolo v = veicolodao.getVeicolo(Long.parseLong(prenotazioneDto.getIdVeicolo()));
+            return new Prenotazione(
+                    u,
+                    v,
+                    LocalDate.parse(prenotazioneDto.getDataInizio()),
+                    LocalDate.parse(prenotazioneDto.getDataFine()),
+                    Boolean.parseBoolean(prenotazioneDto.getIsApprovato())
+            );
+        }
     }
 }

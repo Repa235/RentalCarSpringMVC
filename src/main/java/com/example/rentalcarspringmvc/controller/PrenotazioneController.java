@@ -115,7 +115,7 @@ public class PrenotazioneController {
         if (result.hasErrors()) {
             return "formPrenotazione";
         }
-        Prenotazione p = PrenotazioneMapper.fromDtoToEntityAdd(newPrenotazioneDto);
+        Prenotazione p = PrenotazioneMapper.fromDtoToEntity(newPrenotazioneDto);
         prenotazioneService.saveOrUpdatePrenotazione(p);
         return "redirect:/utente/profiloCustomer";
     }
