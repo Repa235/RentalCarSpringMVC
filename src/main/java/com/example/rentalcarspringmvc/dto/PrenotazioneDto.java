@@ -5,38 +5,39 @@ import javax.validation.constraints.NotEmpty;
 
 public class PrenotazioneDto {
 
-    private String id;
-    private String idUtente;
-    private String idVeicolo;
+    private Long id;
+    private Long idUtente;
+    private Long idVeicolo;
 @NotEmpty(message = "La data di inizio non pùò essere nulla")
     private String dataInizio;
     @NotEmpty(message = "La data di fine non può essere nulla")
 private String dataFine;
-    private String isApprovato;
+    private Boolean isApprovato;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getIdUtente() {
+    public Long getIdUtente() {
         return idUtente;
     }
 
-    public void setIdUtente(String idUtente) {
+    public void setIdUtente(Long idUtente) {
         this.idUtente = idUtente;
     }
 
-    public String getIdVeicolo() {
+    public Long getIdVeicolo() {
         return idVeicolo;
     }
 
-    public void setIdVeicolo(String idVeicolo) {
+    public void setIdVeicolo(Long idVeicolo) {
         this.idVeicolo = idVeicolo;
     }
+
 
     public String getDataInizio() {
         return dataInizio;
@@ -54,11 +55,11 @@ private String dataFine;
         this.dataFine = dataFine;
     }
 
-    public String getIsApprovato() {
+    public boolean getIsApprovato() {
         return isApprovato;
     }
 
-    public void setIsApprovato(String isApprovato) {
+    public void setIsApprovato(Boolean isApprovato) {
         this.isApprovato = isApprovato;
     }
 }

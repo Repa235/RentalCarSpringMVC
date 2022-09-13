@@ -115,8 +115,7 @@ public class PrenotazioneController {
         if (result.hasErrors()) {
             return "formPrenotazione";
         }
-        Prenotazione p = PrenotazioneMapper.fromDtoToEntity(newPrenotazioneDto);
-        prenotazioneService.saveOrUpdatePrenotazione(p);
+        prenotazioneService.saveOrUpdatePrenotazione(newPrenotazioneDto);
         return "redirect:/utente/profiloCustomer";
     }
 
@@ -142,8 +141,7 @@ public class PrenotazioneController {
                                        @RequestParam("approva") String azione) {
         Prenotazione p = prenotazioneService.getPrenotazione(Long.parseLong(prenotazioneIdString));
         if (azione.equals("true")) {
-            p.setApprovato(true);
-            prenotazioneService.saveOrUpdatePrenotazione(p);
+            prenotazioneService.approvaPrenotazione(p);
         } else if (azione.equals("elimina")) {
             prenotazioneService.deletePrenotazione(p.getId());
         }

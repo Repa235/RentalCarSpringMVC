@@ -1,12 +1,18 @@
 package com.example.rentalcarspringmvc.service;
 
+import com.example.rentalcarspringmvc.dto.PrenotazioneDto;
 import com.example.rentalcarspringmvc.entities.Prenotazione;
 
 import java.util.List;
 
 public interface PrenotazioneService {
-    public Prenotazione getPrenotazione(Long id);
-    public List<Prenotazione> getAllPrenotazioni();
-    public boolean saveOrUpdatePrenotazione(Prenotazione c);
-    public boolean deletePrenotazione(Long id);
+    Prenotazione getPrenotazione(Long id);
+
+    List<Prenotazione> getAllPrenotazioni();
+
+    void saveOrUpdatePrenotazione(PrenotazioneDto pdto);
+
+    boolean deletePrenotazione(Long id);
+
+    void approvaPrenotazione(Prenotazione p);
 }

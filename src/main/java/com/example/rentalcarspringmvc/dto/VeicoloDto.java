@@ -9,17 +9,17 @@ import javax.validation.constraints.NotEmpty;
 
 public class VeicoloDto {
 
-   private String id;
+   private Long id;
    private String casaCostruttrice;
    private String modello;
    private String annoImmatricolazione;
    private String tipo;
 
-   public String getId() {
+   public Long getId() {
       return id;
    }
 
-   public void setId(String id) {
+   public void setId(Long id) {
       this.id = id;
    }
 

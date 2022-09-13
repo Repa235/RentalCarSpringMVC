@@ -1,6 +1,7 @@
 package com.example.rentalcarspringmvc.controller;
 
 import com.example.rentalcarspringmvc.dto.UtenteDto;
+import com.example.rentalcarspringmvc.entities.Prenotazione;
 import com.example.rentalcarspringmvc.entities.Utente;
 import com.example.rentalcarspringmvc.mapper.UtenteMapper;
 import com.example.rentalcarspringmvc.service.UtenteService;
@@ -107,8 +108,10 @@ public class UtenteController {
             return "formUtente";
         }
         customerDto.setPassword(passwordEncoder.encode(customerDto.getPassword()));
-            Utente customerToAdd = UtenteMapper.fromDtoToEntity(customerDto);
-            utenteService.saveOrUpdateUtente(customerToAdd);
+        Utente u = customerDto.getId()==null?
+                new Utente() : utenteService.getUtente(customerDto.getId());
+                    UtenteMapper.fromDtoToEntity(customerDto);
+            utenteService.saveOrUpdateUtente(u);
         return "redirect:../";
     }
 

@@ -7,7 +7,7 @@ public class UtenteDto {
 
 
 
-   private String id;
+   private Long id;
    @NotEmpty(message="Il NOME non può essere nullo")
    private String nome;
    @NotEmpty(message="Il COGNOME non può essere nullo")
@@ -20,11 +20,11 @@ public class UtenteDto {
    @NotEmpty(message="inserire PASSWORD")
    private String password;
 
-   public String getId() {
+   public Long getId() {
       return id;
    }
 
-   public void setId(String id) {
+   public void setId(Long id) {
       this.id = id;
    }
 
